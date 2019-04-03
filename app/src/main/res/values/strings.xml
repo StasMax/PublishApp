@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">PublishApp</string>
+    <string name="header_main">Список публикаций</string>
+    <string name="link">Полезные ссылки:</string>
+    <string name="category">Категории:</string>
+    <string name="tag">Теги:</string>
+    <string name="date_event">Дата события:</string>
+    <string name="enter_data_txt">Введите данные для публикации</string>
+    <string name="enter_category_txt">Категории(обязательное поле):</string>
+    <string name="enter_tag_txt">Введите теги(обязательное поле):</string>
+    <string name="enter_header_txt">Заголовок(необязательно):</string>
+    <string name="enter_description_txt">Описание(опционально)</string>
+    <string name="enter_link_txt">Ссылки(опционально)</string>
+    <string name="enter_file_picture_txt">Загрузка изображений(опционально):</string>
+    <string name="button_load_image_text">Выбрать изображение</string>
+    <string name="button_send_post">Опубликовать</string>
+    <string name="empty_list">Список публикаций пуст</string>
+</resources>
