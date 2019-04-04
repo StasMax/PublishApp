@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileOptions {
@@ -30,10 +31,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.marvinlabs:android-slideshow-widget:0.4.0@aar'
-    implementation 'com.marvinlabs:android-slideshow-widget-picasso-plugin:0.4.+@aar'
     implementation 'com.squareup:javapoet:1.10.0'
     implementation 'com.squareup.picasso:picasso:2.3.2'
     implementation 'com.google.code.gson:gson:2.8.2'
@@ -63,4 +63,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
 }

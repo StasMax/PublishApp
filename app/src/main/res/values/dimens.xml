@@ -9,4 +9,5 @@
     <dimen name="category_text_size">14dp</dimen>
     <dimen name="tag_text_size">14dp</dimen>
     <dimen name="margin_left">10dp</dimen>
+    <dimen name="margin_edit_text">8dp</dimen>
 </resources>
