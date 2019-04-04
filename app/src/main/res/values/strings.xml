@@ -17,4 +17,6 @@
     <string name="empty_list">Список публикаций пуст</string>
     <string name="star_txt">* - поля обязательные к заполнению</string>
     <string name="enter_link_txt_name">Название ссылки:</string>
+    <string name="error_fields">Необходимо заполнить обязательные поля</string>
+    <string name="error_link_field">Проверьте поля для ссылок</string>
 </resources>

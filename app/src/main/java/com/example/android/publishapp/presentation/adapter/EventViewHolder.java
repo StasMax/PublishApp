@@ -61,8 +61,8 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         eventTag.setText(tagBuilder.toString());
 
         if (publishModel.getLink() != null) {
-            for (Map.Entry entry : publishModel.getLink().entrySet()) {
-                linkBuilder.append(" " + "<a href=").append(entry.getKey()).append("><font color=#AAA>").append(entry.getValue()).append("</font></a>").append(",");
+            for (int i = 0; i < publishModel.getLink().size(); i++) {
+                linkBuilder.append(" " + "<a href=").append(publishModel.getLink().get(i)).append("><font color=#AAA>").append(publishModel.getLinkName().get(i)).append("</font></a>").append(",");
             }
             linkBuilder.deleteCharAt(linkBuilder.length() - 1);
             eventLink.setText(Html.fromHtml(linkBuilder.toString()));

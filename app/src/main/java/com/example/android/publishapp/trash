@@ -1,0 +1,11 @@
+public void rxListeners() {
+    publishPresenter.disposeBag(RxTextView.afterTextChangeEvents(editCategoryText)
+            .skipInitialValue()
+            .filter(textViewAfterTextChangeEvent -> (Objects.requireNonNull(textViewAfterTextChangeEvent.editable()).toString().length() > 1))
+            .subscribe(textViewAfterTextChangeEvent -> publishPresenter.fieldCategory(textViewAfterTextChangeEvent.toString())));
+
+    publishPresenter.disposeBag(RxTextView.afterTextChangeEvents(editTagText)
+            .skipInitialValue()
+            .filter(textViewAfterTextChangeEvent -> (Objects.requireNonNull(textViewAfterTextChangeEvent.editable()).toString().length() > 1))
+            .subscribe(textViewAfterTextChangeEvent -> publishPresenter.fieldTag(textViewAfterTextChangeEvent.toString())));
+    }

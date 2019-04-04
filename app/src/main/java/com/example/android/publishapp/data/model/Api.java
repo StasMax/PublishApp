@@ -16,9 +16,9 @@ public interface Api {
     @GET("/posts/{date}")
     Single<PublishModel> getPublishDate(@Query("date") String date);
 
-    @GET("/posts")
+    @GET("/posts/")
     Single<List<PublishModel>> getAllPublishes();
 
-    @POST("/posts")
+    @POST("/posts/new.json")
     Single<PublishModel> setPublish(@Body PublishModel publishModel);
 }

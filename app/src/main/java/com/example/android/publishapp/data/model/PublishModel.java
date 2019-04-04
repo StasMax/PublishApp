@@ -1,15 +1,12 @@
 package com.example.android.publishapp.data.model;
 
-import android.net.Uri;
+
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-
 import lombok.Data;
 
 @Data
@@ -31,7 +28,10 @@ public class PublishModel {
     private List<String> filePicture;
     @SerializedName("link")
     @Expose
-    private Map<String, String> link;
+    private List<String> link;
+    @SerializedName("linkName")
+    @Expose
+    private List<String> linkName;
     @SerializedName("date")
     @Expose
     private String date;
@@ -39,13 +39,14 @@ public class PublishModel {
     @Expose
     private int type;
 
-    public PublishModel(String[] category, String[] tag, String header, String description, List<String> filePicture, Map<String, String> link, String date, int type) {
+    public PublishModel(String[] category, String[] tag, String header, String description, List<String> filePicture, List<String> link, List<String> linkName, String date, int type) {
         this.category = category;
         this.tag = tag;
         this.header = header;
         this.description = description;
         this.filePicture = filePicture;
         this.link = link;
+        this.linkName = linkName;
         this.date = date;
         this.type = type;
     }

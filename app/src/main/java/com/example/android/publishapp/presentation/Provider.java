@@ -12,6 +12,8 @@ public class Provider {
 
     public List<PublishModel> listProvider(){
         List<PublishModel>list = new ArrayList<>();
+        List<String>link = new ArrayList<>();
+        List<String>linkName = new ArrayList<>();
         String[] categories = new String[]{"Toyota", "Mazda", "Fiat"};
         String[] tags = new String[]{"Corola", "cx-5", "Albea"};
         String header = "This is cars of Japanese";
@@ -20,13 +22,15 @@ public class Provider {
         pictures.add("https://im0-tub-ru.yandex.net/i?id=2134ea3527e1bbae522c720e066805e2-sr&n=13");
         pictures.add("https://im0-tub-ru.yandex.net/i?id=dec26fcdd38fd56454f36fa2320237da-sr&n=13");
         pictures.add("http://carfor.ru/upload/autocat/big/1_4258_0.jpg");
-        Map<String, String>link = new HashMap<>();
-        link.put("http://developer.alexanderklimov.ru/android/java/hashmap.php", "HashMap");
-        link.put("http://developer.alexanderklimov.ru/android/library/picasso.php", "Picasso");
-        list.add(new PublishModel(categories, tags, header, description, pictures, link, null, 1));
-        list.add(new PublishModel(categories, tags, header, description, pictures, link, null, 0));
-        list.add(new PublishModel(categories, tags, header, description, pictures, link, null, 1));
-        list.add(new PublishModel(categories, tags, header, description, pictures, link, null, 0));
+        link.add("http://developer.alexanderklimov.ru/android/java/hashmap.php");
+        link.add("http://developer.alexanderklimov.ru/android/library/picasso.php");
+        linkName.add("HashMap");
+        linkName.add("Picasso");
+
+        list.add(new PublishModel(categories, tags, header, description, pictures, link, linkName, null, 1));
+        list.add(new PublishModel(categories, tags, header, description, pictures, link, linkName, null, 0));
+        list.add(new PublishModel(categories, tags, header, description, pictures, link, linkName,null, 1));
+        list.add(new PublishModel(categories, tags, header, description, pictures, link, linkName,null, 0));
 
 
 
