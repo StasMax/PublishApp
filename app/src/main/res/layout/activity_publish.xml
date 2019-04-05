@@ -1,129 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scroll"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    tools:context=".presentation.mvp.ui.PublishActivity">
 
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".presentation.mvp.ui.PublishActivity">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_left"
+            android:checked="true"
+            android:text="@string/post" />
+
+        <RadioButton
+            android:id="@+id/radioButtonEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_left"
+            android:text="@string/event" />
+
+        <RadioButton
+            android:id="@+id/radioButtonLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_left"
+            android:text="@string/radio_link" />
+    </RadioGroup>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
+            android:layout_gravity="center_horizontal"
             android:text="@string/enter_data_txt"
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_left"
-            android:layout_marginTop="10dp"
-            android:text="@string/enter_category_txt" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v4.view.ViewPager>
 
-        <EditText
-            android:id="@+id/edit_category_post"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_edit_text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_left"
-            android:layout_marginTop="10dp"
-            android:text="@string/enter_tag_txt" />
-
-        <EditText
-            android:id="@+id/edit_tag_post"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_edit_text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_left"
-            android:layout_marginTop="10dp"
-            android:text="@string/enter_header_txt" />
-
-        <EditText
-            android:id="@+id/edit_header_post"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_edit_text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_left"
-            android:layout_marginTop="10dp"
-            android:text="@string/enter_description_txt" />
-
-        <EditText
-            android:id="@+id/edit_description_post"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_edit_text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_left"
-            android:layout_marginTop="10dp"
-            android:text="@string/enter_link_txt" />
-
-        <EditText
-            android:id="@+id/edit_link_post"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_edit_text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="@string/enter_link_txt_name" />
-
-        <EditText
-            android:id="@+id/edit_link_post_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_edit_text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/star_txt" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_left"
-            android:layout_marginTop="10dp"
-            android:text="@string/enter_file_picture_txt" />
-
-        <Button
-            android:id="@+id/button_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_edit_text"
-            android:text="@string/button_load_image_text" />
-
-        <Button
-            android:id="@+id/button_send_post"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_left"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/button_send_post"
-            android:textSize="20dp" />
     </LinearLayout>
-</ScrollView>

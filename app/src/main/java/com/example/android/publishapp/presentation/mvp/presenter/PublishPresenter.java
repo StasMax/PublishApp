@@ -24,7 +24,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static android.app.Activity.RESULT_OK;
-import static com.example.android.publishapp.presentation.mvp.ui.PublishActivity.PICK_IMAGE;
+import static com.example.android.publishapp.presentation.mvp.ui.fragment.PostFragment.PICK_IMAGE;
+
 
 @InjectViewState
 public class PublishPresenter extends BasePresenter<PublishView> {
@@ -96,7 +97,7 @@ public class PublishPresenter extends BasePresenter<PublishView> {
                 ref.putFile(filePath)
                         .addOnSuccessListener(taskSnapshot -> {
                             progressDialog.dismiss();
-
+                            ref.getDownloadUrl().addOnCompleteListener(task -> filePicture.add(task.getResult().toString()));
                             Toast.makeText(context, "Uploaded", Toast.LENGTH_LONG).show();
                         })
                         .addOnFailureListener(e -> {
@@ -108,7 +109,7 @@ public class PublishPresenter extends BasePresenter<PublishView> {
                                     .getTotalByteCount());
                             progressDialog.setMessage("Uploaded " + (int) progress + "%");
                         });
-                ref.getDownloadUrl().addOnCompleteListener(task -> filePicture.add(task.getResult().toString()));
+
             }
         }
     }
