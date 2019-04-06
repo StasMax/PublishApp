@@ -11,7 +11,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.example.android.publishapp.presentation.Constant.TYPE_LINK;
-import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
 
 public class LinkPresenter extends BasePresenter<LinkView> {
     private IPublishIteractor publishIteractor;
@@ -20,16 +19,18 @@ public class LinkPresenter extends BasePresenter<LinkView> {
     public LinkPresenter(IPublishIteractor publishIteractor) {
         this.publishIteractor = publishIteractor;
     }
+
     public void initSendLink() {
         if (getCategories() == null || getTags() == null || getLinks().size() != getLinksNames().size()) {
             getViewState().showMesage(R.string.error_fields);
         } else {
             PublishModel publishModel = new PublishModel(getCategories(), getTags(), getLinks(), getLinksNames(), TYPE_LINK);
-          /*  disposeBag(publishIteractor.insertPostInCloud(publishModel)
+            disposeBag(publishIteractor.insertPostInDb(publishModel)
                     .doFinally(this::clearObjects)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe());*/
+                    .subscribe(post -> getViewState().showMesage(R.string.success_post),
+                            Throwable::printStackTrace));
         }
     }
 }

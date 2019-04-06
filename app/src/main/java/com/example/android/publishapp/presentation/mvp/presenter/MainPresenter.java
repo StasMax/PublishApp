@@ -7,6 +7,7 @@ import com.example.android.publishapp.presentation.mvp.view.MainView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -27,16 +28,14 @@ public class MainPresenter extends BasePresenter<MainView> {
         disposeBag(publishIteractor.getAllPostsFromDb()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(stringPublishModelMap -> {
-                    modelList.addAll(stringPublishModelMap.values());
-                    initPublishersRecycle(modelList);
-                }));
+                .subscribe(this::initPublishersRecycle));
     }
 
-    public void initPublishersRecycle(List<PublishModel> publishModels) {
+    public void initPublishersRecycle(Map<String, PublishModel> publishModels) {
+        modelList.addAll(publishModels.values());
         if (publishModels.size() == 0) {
             getViewState().setupEmptyList();
         }
-        getViewState().setupPublishList(publishModels);
+        getViewState().setupPublishList(modelList);
     }
 }

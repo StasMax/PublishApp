@@ -37,5 +37,4 @@ public class PostPresenter extends BasePresenter<PostView> {
                             Throwable::printStackTrace));
         }
     }
-
 }

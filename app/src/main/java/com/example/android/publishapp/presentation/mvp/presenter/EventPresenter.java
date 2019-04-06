@@ -1,5 +1,7 @@
 package com.example.android.publishapp.presentation.mvp.presenter;
 
+import android.annotation.SuppressLint;
+
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.domain.iteractor.IPublishIteractor;
@@ -28,15 +30,17 @@ public class EventPresenter extends BasePresenter<EventView> {
             getViewState().showMesage(R.string.error_fields);
         } else {
             PublishModel publishModel = new PublishModel(getCategories(), getTags(), getHeader(), getDescription(), getFileImage(), getLinks(), getLinksNames(), initDate(), TYPE_EVENT);
-          /*  disposeBag(publishIteractor.insertPostInCloud(publishModel)
+            disposeBag(publishIteractor.insertPostInDb(publishModel)
                     .doFinally(this::clearObjects)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe());*/
+                    .subscribe(post -> getViewState().showMesage(R.string.success_post),
+                            Throwable::printStackTrace));
         }
     }
 
     private String initDate() {
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss aa");
         return dateformat.format(Calendar.getInstance().getTime());
     }
