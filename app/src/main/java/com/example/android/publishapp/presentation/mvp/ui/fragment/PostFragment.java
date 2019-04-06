@@ -3,12 +3,9 @@ package com.example.android.publishapp.presentation.mvp.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -16,24 +13,20 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.presentation.app.App;
-import com.example.android.publishapp.presentation.mvp.presenter.PublishPresenter;
-import com.example.android.publishapp.presentation.mvp.view.PublishView;
+import com.example.android.publishapp.presentation.mvp.presenter.PostPresenter;
+import com.example.android.publishapp.presentation.mvp.view.PostView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class PostFragment extends MvpAppCompatFragment implements PublishView {
+public class PostFragment extends MvpAppCompatFragment implements PostView {
 
     public static final int PICK_IMAGE = 1;
     FirebaseStorage storage;
@@ -41,12 +34,13 @@ public class PostFragment extends MvpAppCompatFragment implements PublishView {
 
     @Inject
     @InjectPresenter
-    PublishPresenter publishPresenter;
+    PostPresenter publishPresenter;
 
     @ProvidePresenter
-    PublishPresenter providePresenter() {
+    PostPresenter providePresenter() {
         return publishPresenter;
     }
+
     private Unbinder unbinder;
 
     public PostFragment() {
@@ -96,7 +90,7 @@ public class PostFragment extends MvpAppCompatFragment implements PublishView {
     }
 
     @Override
-    public void showError(int resource) {
+    public void showMesage(int resource) {
         Toast.makeText(getContext(), resource, Toast.LENGTH_SHORT).show();
     }
 
@@ -117,7 +111,6 @@ public class PostFragment extends MvpAppCompatFragment implements PublishView {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         publishPresenter.initUploadImage(requestCode, resultCode, data, storageReference, getContext());
-
     }
 
     @Override

@@ -10,7 +10,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.domain.iteractor.IPublishIteractor;
-import com.example.android.publishapp.presentation.mvp.view.PublishView;
+import com.example.android.publishapp.presentation.mvp.view.PostView;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import static com.example.android.publishapp.presentation.mvp.ui.fragment.PostFr
 
 
 @InjectViewState
-public class PublishPresenter extends BasePresenter<PublishView> {
+public class PostPresenter extends BasePresenter<PostView> {
     private IPublishIteractor publishIteractor;
     private String[] categories = null;
     private String[] tags = null;
@@ -41,7 +41,7 @@ public class PublishPresenter extends BasePresenter<PublishView> {
     private final int type = 0;
 
     @Inject
-    public PublishPresenter(IPublishIteractor publishIteractor) {
+    public PostPresenter(IPublishIteractor publishIteractor) {
         this.publishIteractor = publishIteractor;
     }
 
@@ -74,7 +74,7 @@ public class PublishPresenter extends BasePresenter<PublishView> {
     public void initSendPost() {
 
         if (categories == null || tags == null || links.size() != linksNames.size()) {
-            getViewState().showError(R.string.error_fields);
+            getViewState().showMesage(R.string.error_fields);
         } else {
             PublishModel publishModel = new PublishModel(categories, tags, header, description, filePicture, links, linksNames, date, type);
             disposeBag(publishIteractor.insertPostInCloud(publishModel)

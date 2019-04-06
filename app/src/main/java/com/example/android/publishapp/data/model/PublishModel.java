@@ -51,6 +51,25 @@ public class PublishModel {
         this.type = type;
     }
 
+    public PublishModel(String[] category, String[] tag, String header, String description, List<String> filePicture, List<String> link, List<String> linkName, int type) {
+        this.category = category;
+        this.tag = tag;
+        this.header = header;
+        this.description = description;
+        this.filePicture = filePicture;
+        this.link = link;
+        this.linkName = linkName;
+        this.type = type;
+    }
+
+    public PublishModel(String[] category, String[] tag, List<String> link, List<String> linkName, int type) {
+        this.category = category;
+        this.tag = tag;
+        this.link = link;
+        this.linkName = linkName;
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
