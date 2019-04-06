@@ -31,10 +31,9 @@ import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
 
 public class PostFragment extends MvpAppCompatFragment implements PostView {
 
-
-    FirebaseStorage storage;
+    @Inject
     StorageReference storageReference;
-
+    private Unbinder unbinder;
     @Inject
     @InjectPresenter
     PostPresenter postPresenter;
@@ -44,8 +43,6 @@ public class PostFragment extends MvpAppCompatFragment implements PostView {
         return postPresenter;
     }
 
-    private Unbinder unbinder;
-
     public PostFragment() {
     }
 
@@ -53,12 +50,8 @@ public class PostFragment extends MvpAppCompatFragment implements PostView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         App.getComponent().inject(this);
-        FirebaseApp.initializeApp(getContext());
         View view = inflater.inflate(R.layout.fragment_post, container, false);
         unbinder = ButterKnife.bind(this, view);
-        FirebaseApp app = FirebaseApp.getInstance();
-        storage = FirebaseStorage.getInstance(app);
-        storageReference = storage.getReference("images");
         return view;
     }
 

@@ -3,15 +3,16 @@ package com.example.android.publishapp.domain.iteractor;
 import com.example.android.publishapp.data.model.PublishModel;
 
 import java.util.List;
+import java.util.Map;
 
-import io.reactivex.Completable;
 import io.reactivex.Single;
+import retrofit2.Call;
 
 public interface IPublishIteractor {
 
-    Completable insertPostInCloud(PublishModel publishModel);
+    Single<PublishModel> insertPostInDb(PublishModel publishModel);
 
-    Single<List<PublishModel>>getAllPostsFromCloud();
+    Single<Map<String, PublishModel>> getAllPostsFromDb();
 
-    Single<PublishModel>getEventByDate(String date);
+    Call<List<PublishModel>> getAllPostsFromDbCall();
 }

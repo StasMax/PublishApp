@@ -3,14 +3,16 @@ package com.example.android.publishapp.data.repository;
 import com.example.android.publishapp.data.model.PublishModel;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Single;
+import retrofit2.Call;
 
 public interface IPublishRepository {
 
-    void insertPublishModel(PublishModel publishModel);
+    Single<PublishModel> insertPublishModel(PublishModel publishModel);
 
-    Single<List<PublishModel>> getPublishModelList();
+    Single<Map<String, PublishModel>> getPublishModelList();
 
-    Single<PublishModel> getPublishmodelByDate(String date);
+Call<List<PublishModel>>getPublishesCall();
 }

@@ -28,11 +28,11 @@ public class EventPresenter extends BasePresenter<EventView> {
             getViewState().showMesage(R.string.error_fields);
         } else {
             PublishModel publishModel = new PublishModel(getCategories(), getTags(), getHeader(), getDescription(), getFileImage(), getLinks(), getLinksNames(), initDate(), TYPE_EVENT);
-            disposeBag(publishIteractor.insertPostInCloud(publishModel)
+          /*  disposeBag(publishIteractor.insertPostInCloud(publishModel)
                     .doFinally(this::clearObjects)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe());
+                    .subscribe());*/
         }
     }
 

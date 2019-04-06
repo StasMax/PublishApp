@@ -5,6 +5,7 @@ import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.domain.iteractor.IPublishIteractor;
 import com.example.android.publishapp.presentation.mvp.view.PostView;
+
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,11 +28,13 @@ public class PostPresenter extends BasePresenter<PostView> {
             getViewState().showMesage(R.string.error_fields);
         } else {
             PublishModel publishModel = new PublishModel(getCategories(), getTags(), getHeader(), getDescription(), getFileImage(), getLinks(), getLinksNames(), TYPE_POST);
-            disposeBag(publishIteractor.insertPostInCloud(publishModel)
+
+            disposeBag(publishIteractor.insertPostInDb(publishModel)
                     .doFinally(this::clearObjects)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe());
+                    .subscribe(post -> getViewState().showMesage(R.string.success_post),
+                            Throwable::printStackTrace));
         }
     }
 

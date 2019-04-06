@@ -1,24 +1,24 @@
 package com.example.android.publishapp.data.model;
 
-import com.example.android.publishapp.data.model.PublishModel;
-
 import java.util.List;
+import java.util.Map;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
+
 
 public interface Api {
-    @GET("/posts/{date}")
-    Single<PublishModel> getPublishDate(@Query("date") String date);
 
-    @GET("/posts/")
-    Single<List<PublishModel>> getAllPublishes();
+    @GET("/post/newPost.json")
+    Single<Map<String, PublishModel>> getAllPublishes();
 
-    @POST("/posts/new.json")
-    Single<PublishModel> setPublish(@Body PublishModel publishModel);
+    @GET("/post/newPost.json")
+    Call<List<PublishModel>> getAllPublishesCall();
+
+    @POST("post/{new}.json")
+    Single<PublishModel> setPublish(@Path("new") String s1, @Body PublishModel publishModel);
 }

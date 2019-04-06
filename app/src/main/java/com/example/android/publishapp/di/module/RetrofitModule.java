@@ -14,10 +14,9 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-@Module(includes = PublishModule.class)
+@Module
 public class RetrofitModule {
     private static final String BASE_URL = "https://publishapp-c497e.firebaseio.com/";
-  //  private static final String BASE_URL = "https://publishapp-d9d9f.firebaseio.com/";
 
     @Provides
     @Singleton

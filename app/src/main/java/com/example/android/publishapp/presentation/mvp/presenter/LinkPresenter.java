@@ -25,11 +25,11 @@ public class LinkPresenter extends BasePresenter<LinkView> {
             getViewState().showMesage(R.string.error_fields);
         } else {
             PublishModel publishModel = new PublishModel(getCategories(), getTags(), getLinks(), getLinksNames(), TYPE_LINK);
-            disposeBag(publishIteractor.insertPostInCloud(publishModel)
+          /*  disposeBag(publishIteractor.insertPostInCloud(publishModel)
                     .doFinally(this::clearObjects)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe());
+                    .subscribe());*/
         }
     }
 }
