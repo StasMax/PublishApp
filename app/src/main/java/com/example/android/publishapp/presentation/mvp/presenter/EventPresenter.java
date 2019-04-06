@@ -1,32 +1,33 @@
 package com.example.android.publishapp.presentation.mvp.presenter;
 
-import com.arellomobile.mvp.InjectViewState;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.domain.iteractor.IPublishIteractor;
-import com.example.android.publishapp.presentation.mvp.view.PostView;
+import com.example.android.publishapp.presentation.mvp.view.EventView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
+import static com.example.android.publishapp.presentation.Constant.TYPE_EVENT;
 
-@InjectViewState
-public class PostPresenter extends BasePresenter<PostView> {
+public class EventPresenter extends BasePresenter<EventView> {
     private IPublishIteractor publishIteractor;
 
     @Inject
-    public PostPresenter(IPublishIteractor publishIteractor) {
+    public EventPresenter(IPublishIteractor publishIteractor) {
         this.publishIteractor = publishIteractor;
     }
 
-    public void initSendPost() {
-
+    public void initSendEvent() {
         if (getCategories() == null || getTags() == null || getLinks().size() != getLinksNames().size()) {
             getViewState().showMesage(R.string.error_fields);
         } else {
-            PublishModel publishModel = new PublishModel(getCategories(), getTags(), getHeader(), getDescription(), getFileImage(), getLinks(), getLinksNames(), TYPE_POST);
+            PublishModel publishModel = new PublishModel(getCategories(), getTags(), getHeader(), getDescription(), getFileImage(), getLinks(), getLinksNames(), initDate(), TYPE_EVENT);
             disposeBag(publishIteractor.insertPostInCloud(publishModel)
                     .doFinally(this::clearObjects)
                     .subscribeOn(Schedulers.io())
@@ -35,4 +36,8 @@ public class PostPresenter extends BasePresenter<PostView> {
         }
     }
 
+    private String initDate() {
+        SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss aa");
+        return dateformat.format(Calendar.getInstance().getTime());
+    }
 }

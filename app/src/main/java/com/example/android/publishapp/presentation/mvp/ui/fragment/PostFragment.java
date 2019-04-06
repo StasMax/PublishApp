@@ -26,19 +26,22 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
+import static com.example.android.publishapp.presentation.Constant.PICK_IMAGE;
+import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
+
 public class PostFragment extends MvpAppCompatFragment implements PostView {
 
-    public static final int PICK_IMAGE = 1;
+
     FirebaseStorage storage;
     StorageReference storageReference;
 
     @Inject
     @InjectPresenter
-    PostPresenter publishPresenter;
+    PostPresenter postPresenter;
 
     @ProvidePresenter
     PostPresenter providePresenter() {
-        return publishPresenter;
+        return postPresenter;
     }
 
     private Unbinder unbinder;
@@ -61,32 +64,32 @@ public class PostFragment extends MvpAppCompatFragment implements PostView {
 
     @OnTextChanged(R.id.edit_category_post)
     public void onCategoryTextChanged(CharSequence s, int start, int before, int count) {
-        publishPresenter.fieldCategory(s.toString());
+        postPresenter.fieldCategory(s.toString());
     }
 
     @OnTextChanged(R.id.edit_tag_post)
     public void onTagTextChanged(CharSequence s, int start, int before, int count) {
-        publishPresenter.fieldTag(s.toString());
+        postPresenter.fieldTag(s.toString());
     }
 
     @OnTextChanged(R.id.edit_header_post)
     public void onHeaderTextChanged(CharSequence s, int start, int before, int count) {
-        publishPresenter.fieldHeader(s.toString());
+        postPresenter.fieldHeader(s.toString());
     }
 
     @OnTextChanged(R.id.edit_description_post)
     public void onDescriptionTextChanged(CharSequence s, int start, int before, int count) {
-        publishPresenter.fieldDescription(s.toString());
+        postPresenter.fieldDescription(s.toString());
     }
 
     @OnTextChanged(R.id.edit_link_post)
     public void onLinkTextChanged(CharSequence s, int start, int before, int count) {
-        publishPresenter.fieldLink(s.toString());
+        postPresenter.fieldLink(s.toString());
     }
 
     @OnTextChanged(R.id.edit_link_post_name)
     public void onLinkNameTextChanged(CharSequence s, int start, int before, int count) {
-        publishPresenter.fieldLinkName(s.toString());
+        postPresenter.fieldLinkName(s.toString());
     }
 
     @Override
@@ -96,7 +99,7 @@ public class PostFragment extends MvpAppCompatFragment implements PostView {
 
     @OnClick(R.id.button_send_post)
     void onClickPost() {
-        publishPresenter.initSendPost();
+        postPresenter.initSendPost();
     }
 
     @OnClick(R.id.button_image)
@@ -110,7 +113,7 @@ public class PostFragment extends MvpAppCompatFragment implements PostView {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        publishPresenter.initUploadImage(requestCode, resultCode, data, storageReference, getContext());
+        postPresenter.initUploadImage(requestCode, resultCode, data, storageReference, getContext());
     }
 
     @Override
