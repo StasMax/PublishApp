@@ -19,9 +19,6 @@
     <string name="enter_link_txt_name">Название ссылки:</string>
     <string name="error_fields">Проверьте правильность заполнения полей</string>
     <string name="error_link_field">Проверьте поля для ссылок</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="choose_layout_txt">Тип публикации</string>
     <string name="post">Пост</string>
     <string name="event">Событие</string>

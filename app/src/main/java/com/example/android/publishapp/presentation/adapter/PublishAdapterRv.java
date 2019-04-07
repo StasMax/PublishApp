@@ -12,10 +12,12 @@ import com.example.android.publishapp.data.model.PublishModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.android.publishapp.presentation.Constant.TYPE_LINK;
+import static com.example.android.publishapp.presentation.Constant.TYPE_EVENT;
+import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
+
 public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private final int TYPE_POST = 0;
-    private final int TYPE_EVENT = 1;
-    private final int TYPE_LINK = 2;
+
     private List<PublishModel> publishModelList = new ArrayList<>();
 
     public void setupPublishers(List<PublishModel> publishModels) {

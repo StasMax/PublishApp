@@ -32,15 +32,10 @@ public class EventPresenter extends BasePresenter<EventView> {
         } else {
             PublishModel publishModel = new PublishModel(getCategories(), getTags(), getHeader(), getDescription(), getFileImage(), getLinks(), getLinksNames(), initDate(), TYPE_EVENT);
             disposeBag(publishIteractor.insertPostInDb(publishModel)
-
-                    .doAfterSuccess(publishModel1 -> {
-                        clearObjects();
-
-                    })
+                    .doOnSuccess(publishModel1 -> getViewState().showMesage(R.string.success_post))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe());
-            getViewState().showMesage(R.string.success_post);
         }
     }
 

@@ -27,11 +27,10 @@ public class LinkPresenter extends BasePresenter<LinkView> {
         } else {
             PublishModel publishModel = new PublishModel(getCategories(), getTags(), getLinks(), getLinksNames(), TYPE_LINK);
             disposeBag(publishIteractor.insertPostInDb(publishModel)
+                    .doOnSuccess(publishModel1 -> getViewState().showMesage(R.string.success_post))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe());
-            clearObjects();
-            getViewState().showMesage(R.string.success_post);
         }
     }
 }

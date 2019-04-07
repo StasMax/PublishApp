@@ -110,7 +110,7 @@ public class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
         }
     }
 
-    void clearObjects() {
+    void clearLists() {
         links.clear();
         linksNames.clear();
         fileImage.clear();

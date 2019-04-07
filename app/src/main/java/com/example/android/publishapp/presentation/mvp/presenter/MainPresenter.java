@@ -28,10 +28,11 @@ public class MainPresenter extends BasePresenter<MainView> {
         disposeBag(publishIteractor.getAllPostsFromDb()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::initPublishersRecycle));
+                .subscribe(this::initPublishersRecycle, Throwable::printStackTrace));
     }
 
     public void initPublishersRecycle(Map<String, PublishModel> publishModels) {
+        modelList.clear();
         modelList.addAll(publishModels.values());
         if (publishModels.size() == 0) {
             getViewState().setupEmptyList();
