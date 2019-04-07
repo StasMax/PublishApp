@@ -51,7 +51,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         adapter = new PublishAdapterRv();
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), OrientationHelper.VERTICAL, false));
         recyclerView.setAdapter(adapter);
-        mainPresenter.initPublishers();
     }
 
     @Override
@@ -75,5 +74,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     @OnClick(R.id.float_button)
     void onSaveClick() {
         startActivity(new Intent(MainActivity.this, PublishActivity.class));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mainPresenter.initPublishers();
     }
 }

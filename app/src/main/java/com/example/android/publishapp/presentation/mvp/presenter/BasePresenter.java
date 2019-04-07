@@ -25,7 +25,7 @@ import static com.example.android.publishapp.presentation.Constant.PICK_IMAGE;
 public class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     @Getter
-    private List<String> fileImage = new ArrayList<>();
+    private List<String> fileImage;
     @Getter
     private String[] categories = null;
     @Getter
@@ -35,9 +35,17 @@ public class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
     @Getter
     private String description = null;
     @Getter
-    private List<String> links = new ArrayList<>();
+    private List<String> links;
     @Getter
-    private List<String> linksNames = new ArrayList<>();
+    private List<String> linksNames;
+
+
+
+    public BasePresenter() {
+        fileImage = new ArrayList<>();
+        links = new ArrayList<>();
+        linksNames = new ArrayList<>();
+    }
 
     public void fieldCategory(String category) {
         categories = category.split(", ");
@@ -102,7 +110,7 @@ public class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
         }
     }
 
-    public void clearObjects() {
+    void clearObjects() {
         links.clear();
         linksNames.clear();
         fileImage.clear();

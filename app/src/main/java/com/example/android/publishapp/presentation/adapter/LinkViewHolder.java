@@ -21,8 +21,8 @@ public class LinkViewHolder extends RecyclerView.ViewHolder {
 
     public LinkViewHolder(View v) {
         super(v);
-        linkCategory = itemView.findViewById(R.id.category_post);
-        linkTag = itemView.findViewById(R.id.tag_post);
+        linkCategory = itemView.findViewById(R.id.category_link);
+        linkTag = itemView.findViewById(R.id.tag_link);
         linkLink = v.findViewById(R.id.link_link);
         linkBuilder = new StringBuilder();
         categoryBuilder = new StringBuilder();

@@ -2,6 +2,7 @@ package com.example.android.publishapp.presentation.mvp.presenter;
 
 import android.annotation.SuppressLint;
 
+import com.arellomobile.mvp.InjectViewState;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.domain.iteractor.IPublishIteractor;
@@ -16,7 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.example.android.publishapp.presentation.Constant.TYPE_EVENT;
-
+@InjectViewState
 public class EventPresenter extends BasePresenter<EventView> {
     private IPublishIteractor publishIteractor;
 
@@ -31,11 +32,15 @@ public class EventPresenter extends BasePresenter<EventView> {
         } else {
             PublishModel publishModel = new PublishModel(getCategories(), getTags(), getHeader(), getDescription(), getFileImage(), getLinks(), getLinksNames(), initDate(), TYPE_EVENT);
             disposeBag(publishIteractor.insertPostInDb(publishModel)
-                    .doFinally(this::clearObjects)
+
+                    .doAfterSuccess(publishModel1 -> {
+                        clearObjects();
+
+                    })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(post -> getViewState().showMesage(R.string.success_post),
-                            Throwable::printStackTrace));
+                    .subscribe());
+            getViewState().showMesage(R.string.success_post);
         }
     }
 

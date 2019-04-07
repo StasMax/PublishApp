@@ -39,7 +39,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         eventDescription = v.findViewById(R.id.description_event);
         viewFlipper = v.findViewById(R.id.view_flipper_event);
         eventLink = v.findViewById(R.id.link_event);
-        eventLinkWord = v.findViewById(R.id.link_post_word);
+        eventLinkWord = v.findViewById(R.id.link_event_word);
         eventDate = v.findViewById(R.id.date_event);
         eventDateWord = v.findViewById(R.id.date_event_word);
         categoryBuilder = new StringBuilder();
@@ -60,7 +60,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         tagBuilder.deleteCharAt(tagBuilder.length() - 1);
         eventTag.setText(tagBuilder.toString());
 
-        if (publishModel.getLink() != null) {
+        if (publishModel.getLink() != null || publishModel.getLinkName() != null) {
             for (int i = 0; i < publishModel.getLink().size(); i++) {
                 linkBuilder.append(" " + "<a href=").append(publishModel.getLink().get(i)).append("><font color=#AAA>").append(publishModel.getLinkName().get(i)).append("</font></a>").append(",");
             }

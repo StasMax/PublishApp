@@ -9,6 +9,9 @@ import com.example.android.publishapp.presentation.mvp.view.PostView;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.internal.observers.ConsumerSingleObserver;
+import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
@@ -30,11 +33,17 @@ public class PostPresenter extends BasePresenter<PostView> {
             PublishModel publishModel = new PublishModel(getCategories(), getTags(), getHeader(), getDescription(), getFileImage(), getLinks(), getLinksNames(), TYPE_POST);
 
             disposeBag(publishIteractor.insertPostInDb(publishModel)
-                    .doFinally(this::clearObjects)
+
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(post -> getViewState().showMesage(R.string.success_post),
-                            Throwable::printStackTrace));
+                    .subscribe(new Consumer<PublishModel>() {
+                        @Override
+                        public void accept(PublishModel publishModel) throws Exception {
+                           // clearObjects();
+                        }
+                    }));
+            getViewState().showMesage(R.string.success_post);
+
         }
     }
 }
