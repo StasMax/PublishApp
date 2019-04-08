@@ -76,7 +76,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             }
 
             if (publishModel.getDescription() != null) {
-                postDescription.setText(publishModel.getDescription());
+                postDescription.setText(Html.fromHtml(publishModel.getDescription()));
             } else {
                 postDescription.setVisibility(View.GONE);
             }

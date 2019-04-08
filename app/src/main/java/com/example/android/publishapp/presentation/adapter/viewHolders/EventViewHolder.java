@@ -84,7 +84,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
             }
 
             if (publishModel.getDescription() != null) {
-                eventDescription.setText(publishModel.getDescription());
+                eventDescription.setText(Html.fromHtml(publishModel.getDescription()));
             } else {
                 eventDescription.setVisibility(GONE);
             }
