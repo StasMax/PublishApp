@@ -20,7 +20,7 @@ import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
 public class PublishPagedListAdapter extends android.arch.paging.PagedListAdapter<PublishModel, ViewHolder> {
 
 
-    protected PublishPagedListAdapter(@NonNull DiffUtil.ItemCallback<PublishModel> diffCallback) {
+    public PublishPagedListAdapter(@NonNull DiffUtil.ItemCallback<PublishModel> diffCallback) {
         super(diffCallback);
     }
 

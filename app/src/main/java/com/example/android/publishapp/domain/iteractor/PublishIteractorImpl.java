@@ -24,11 +24,6 @@ public class PublishIteractorImpl implements IPublishIteractor {
     }
 
     @Override
-    public Single<Map<String, PublishModel>> getAllPostsFromDb() {
-        return publishRepository.getPublishModelList();
-    }
-
-    @Override
     public Call<Map<String, PublishModel>> getAllPostsFromDbCallback(int page, int pageSize) {
         return publishRepository.getPublishModelListCallback(page, pageSize);
     }

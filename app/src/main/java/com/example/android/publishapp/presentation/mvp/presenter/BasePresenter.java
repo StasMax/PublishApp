@@ -39,8 +39,6 @@ public class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
     @Getter
     private List<String> linksNames;
 
-
-
     public BasePresenter() {
         fileImage = new ArrayList<>();
         links = new ArrayList<>();
@@ -108,12 +106,6 @@ public class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
                         });
             }
         }
-    }
-
-    void clearLists() {
-        links.clear();
-        linksNames.clear();
-        fileImage.clear();
     }
 
     @Override

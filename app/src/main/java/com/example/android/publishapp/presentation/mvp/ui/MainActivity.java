@@ -4,25 +4,16 @@ import android.arch.lifecycle.LiveData;
 import android.arch.paging.PagedList;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.arellomobile.mvp.MvpAppCompatActivity;
-import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.presentation.adapter.PublishDiffUtilCallback;
 import com.example.android.publishapp.presentation.adapter.PublishPagedListAdapter;
 import com.example.android.publishapp.presentation.app.App;
-import com.example.android.publishapp.presentation.mvp.presenter.MainPresenter;
-import com.example.android.publishapp.presentation.mvp.view.MainView;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -30,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends MvpAppCompatActivity implements MainView {
+public class MainActivity extends AppCompatActivity {
     @BindView(R.id.recycler_publishes)
     RecyclerView recyclerView;
     @BindView(R.id.txt_empty_list)
@@ -40,14 +31,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     LiveData<PagedList<PublishModel>> pagedListLiveData;
     @Inject
     PublishDiffUtilCallback publishDiffUtil;
-    @Inject
-    @InjectPresenter
-    MainPresenter mainPresenter;
-
-    @ProvidePresenter
-    MainPresenter providePresenter() {
-        return mainPresenter;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,40 +41,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         pagerAdapter = new PublishPagedListAdapter(publishDiffUtil.diffUtilCallback);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), OrientationHelper.VERTICAL, false));
         recyclerView.setAdapter(pagerAdapter);
-        setupPagedList();
-    }
-
-    private void setupPagedList() {
         pagedListLiveData.observe(this, publishModels -> pagerAdapter.submitList(publishModels));
-    }
-
-    @Override
-    public void showError(int textResource) {
-        Toast.makeText(this, textResource, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void setupEmptyList() {
-        recyclerView.setVisibility(View.GONE);
-        textEmptyList.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void setupPublishList(List<PublishModel> publishList) {
-        recyclerView.setVisibility(View.VISIBLE);
-        textEmptyList.setVisibility(View.GONE);
-      //  adapter.setupPublishers(publishList);
     }
 
     @OnClick(R.id.float_button)
     void onSaveClick() {
         startActivity(new Intent(MainActivity.this, PublishActivity.class));
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mainPresenter.initPublishers();
-    }
-
 }

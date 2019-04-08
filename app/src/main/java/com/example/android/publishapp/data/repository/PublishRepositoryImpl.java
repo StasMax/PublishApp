@@ -24,11 +24,6 @@ public class PublishRepositoryImpl implements IPublishRepository {
     }
 
     @Override
-    public Single<Map<String, PublishModel>> getPublishModelList() {
-        return api.getAllPublishes();
-    }
-
-    @Override
     public Call<Map<String, PublishModel>> getPublishModelListCallback(int page, int pageSize) {
         return api.getAllPublishesCallback(page, pageSize);
     }

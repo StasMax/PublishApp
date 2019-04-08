@@ -28,7 +28,7 @@ public class PagerModule {
     PagedList.Config config() {
         return new PagedList.Config.Builder()
                 .setEnablePlaceholders(true)
-                .setPageSize(10)
+                .setPageSize(5)
                 .build();
     }
 

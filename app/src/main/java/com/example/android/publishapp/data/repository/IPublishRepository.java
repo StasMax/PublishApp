@@ -11,7 +11,5 @@ public interface IPublishRepository {
 
     Single<PublishModel> insertPublishModel(PublishModel publishModel);
 
-    Single<Map<String, PublishModel>> getPublishModelList();
-
     Call<Map<String, PublishModel>> getPublishModelListCallback(int page, int pageSize);
 }

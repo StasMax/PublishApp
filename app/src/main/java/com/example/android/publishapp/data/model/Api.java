@@ -14,9 +14,6 @@ import retrofit2.http.Query;
 public interface Api {
 
     @GET("/post/newPost.json")
-    Single<Map<String, PublishModel>> getAllPublishes();
-
-    @GET("/post/newPost.json")
     Call<Map<String, PublishModel>> getAllPublishesCallback(@Query("page") int page, @Query("pagesize") int pagesize);
 
     @POST("post/{new}.json")

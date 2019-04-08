@@ -11,7 +11,5 @@ public interface IPublishIteractor {
 
     Single<PublishModel> insertPostInDb(PublishModel publishModel);
 
-    Single<Map<String, PublishModel>> getAllPostsFromDb();
-
     Call<Map<String, PublishModel>> getAllPostsFromDbCallback(int page, int pageSize);
 }
