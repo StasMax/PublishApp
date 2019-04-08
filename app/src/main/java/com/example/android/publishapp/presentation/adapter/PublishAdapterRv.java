@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
+import com.example.android.publishapp.presentation.adapter.viewHolders.EventViewHolder;
+import com.example.android.publishapp.presentation.adapter.viewHolders.LinkViewHolder;
+import com.example.android.publishapp.presentation.adapter.viewHolders.PostViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

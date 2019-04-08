@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.Single;
+import retrofit2.Call;
 
 public class PublishRepositoryImpl implements IPublishRepository {
     private Api api;
@@ -25,5 +26,10 @@ public class PublishRepositoryImpl implements IPublishRepository {
     @Override
     public Single<Map<String, PublishModel>> getPublishModelList() {
         return api.getAllPublishes();
+    }
+
+    @Override
+    public Call<Map<String, PublishModel>> getPublishModelListCallback(int page, int pageSize) {
+        return api.getAllPublishesCallback(page, pageSize);
     }
 }

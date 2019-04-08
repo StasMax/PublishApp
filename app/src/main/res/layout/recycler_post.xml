@@ -5,6 +5,12 @@
     android:layout_marginBottom="8dp"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/load_txt_post"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <ImageView
         android:id="@+id/file_picture_post"
         android:layout_width="@dimen/post_width_picture_size"
