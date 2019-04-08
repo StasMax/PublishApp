@@ -11,8 +11,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,7 +19,7 @@ public class PublishPositionalDataSource extends android.arch.paging.PositionalD
 
     private IPublishIteractor publishIteractor;
 
-    @Inject
+
     public PublishPositionalDataSource(IPublishIteractor publishIteractor) {
         this.publishIteractor = publishIteractor;
     }
@@ -36,7 +34,7 @@ public class PublishPositionalDataSource extends android.arch.paging.PositionalD
                 List<PublishModel> result = new ArrayList<>();
                 if (response.body() != null) {
                     result.addAll(response.body().values());
-                    Collections.sort(result, COMPARE_BY_TYPE);
+                    Collections.sort(result, compareByType);
                 }
 
                 if (params.placeholdersEnabled) {
@@ -73,7 +71,7 @@ public class PublishPositionalDataSource extends android.arch.paging.PositionalD
         });
     }
 
-    public Comparator<PublishModel> COMPARE_BY_TYPE = (o1, o2) -> {
+    public Comparator<PublishModel> compareByType = (o1, o2) -> {
         if (o1.getType() == 1 && o2.getType() != 1) {
             return -1;
         } else if (o1.getType() != 1 && o2.getType() == 1) {
