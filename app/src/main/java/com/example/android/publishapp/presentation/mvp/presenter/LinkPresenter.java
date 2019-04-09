@@ -4,7 +4,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.domain.iteractor.IPublishIteractor;
-import com.example.android.publishapp.presentation.mvp.view.LinkView;
+import com.example.android.publishapp.presentation.mvp.view.PublishView;
 
 import javax.inject.Inject;
 
@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.example.android.publishapp.presentation.Constant.TYPE_LINK;
 @InjectViewState
-public class LinkPresenter extends BasePresenter<LinkView> {
+public class LinkPresenter extends BasePresenter<PublishView> {
     private IPublishIteractor publishIteractor;
 
     @Inject

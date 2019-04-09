@@ -3,7 +3,6 @@ package com.example.android.publishapp.presentation.mvp.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.presentation.app.App;
 import com.example.android.publishapp.presentation.mvp.presenter.EventPresenter;
-import com.example.android.publishapp.presentation.mvp.view.EventView;
+import com.example.android.publishapp.presentation.mvp.view.PublishView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -29,7 +28,7 @@ import butterknife.Unbinder;
 
 import static com.example.android.publishapp.presentation.Constant.PICK_IMAGE;
 
-public class EventFragment extends MvpAppCompatFragment implements EventView {
+public class EventFragment extends MvpAppCompatFragment implements PublishView {
     FirebaseStorage storage;
     StorageReference storageReference;
 

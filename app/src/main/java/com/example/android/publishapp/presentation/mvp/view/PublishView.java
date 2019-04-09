@@ -5,7 +5,6 @@ import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 @StateStrategyType(value = OneExecutionStateStrategy.class)
-public interface LinkView extends MvpView {
-
+public interface PublishView extends MvpView {
     void showMesage(int resource);
 }

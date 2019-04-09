@@ -6,7 +6,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.domain.iteractor.IPublishIteractor;
-import com.example.android.publishapp.presentation.mvp.view.EventView;
+import com.example.android.publishapp.presentation.mvp.view.PublishView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.example.android.publishapp.presentation.Constant.TYPE_EVENT;
 @InjectViewState
-public class EventPresenter extends BasePresenter<EventView> {
+public class EventPresenter extends BasePresenter<PublishView> {
     private IPublishIteractor publishIteractor;
 
     @Inject
