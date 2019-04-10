@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private PublishPagedListAdapter pagerAdapter;
     @Inject
     LiveData<PagedList<PublishModel>> pagedListLiveData;
-    @Inject
-    PublishDiffUtilCallback publishDiffUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        PublishDiffUtilCallback publishDiffUtil = new PublishDiffUtilCallback();
         pagerAdapter = new PublishPagedListAdapter(publishDiffUtil.diffUtilCallback);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), OrientationHelper.VERTICAL, false));
         recyclerView.setAdapter(pagerAdapter);

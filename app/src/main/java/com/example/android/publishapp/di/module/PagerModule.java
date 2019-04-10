@@ -38,8 +38,4 @@ public class PagerModule {
         return new LivePagedListBuilder<>(sourceFactory, config)
                 .build();
     }
-
-    @Provides
-    @Singleton
-    PublishDiffUtilCallback publishDiffUtil(){return new PublishDiffUtilCallback();}
 }
