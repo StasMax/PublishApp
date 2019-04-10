@@ -6,7 +6,6 @@ import android.arch.paging.PagedList;
 
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.domain.iteractor.IPublishIteractor;
-import com.example.android.publishapp.presentation.adapter.PublishDiffUtilCallback;
 import com.example.android.publishapp.presentation.adapter.PublishSourceFactory;
 
 import javax.inject.Singleton;

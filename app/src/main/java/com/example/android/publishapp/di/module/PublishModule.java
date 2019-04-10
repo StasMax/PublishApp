@@ -11,7 +11,9 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(includes = RetrofitModule.class)
+import static com.example.android.publishapp.presentation.app.App.getRetrofit;
+
+@Module
 public class PublishModule {
     @Provides
     @Singleton
@@ -24,5 +26,10 @@ public class PublishModule {
     IPublishRepository publishRepository(Api api) {
         return new PublishRepositoryImpl(api);
     }
-}
 
+    @Provides
+    @Singleton
+    Api getApi() {
+        return getRetrofit().create(Api.class);
+    }
+}
