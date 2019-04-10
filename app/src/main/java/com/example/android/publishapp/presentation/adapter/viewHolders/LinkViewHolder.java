@@ -9,26 +9,25 @@ import android.widget.TextView;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 
-import java.util.Map;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class LinkViewHolder extends RecyclerView.ViewHolder {
-    private TextView linkCategory;
-    private TextView linkTag;
-    private TextView linkLink;
-    private TextView textLoad;
-    private StringBuilder linkBuilder;
-    private StringBuilder categoryBuilder;
-    private StringBuilder tagBuilder;
+    @BindView(R.id.category_link)
+    TextView linkCategory;
+    @BindView(R.id.tag_link)
+    TextView linkTag;
+    @BindView(R.id.link_link)
+    TextView linkLink;
+    @BindView(R.id.load_txt_link)
+    TextView textLoad;
+    private StringBuilder linkBuilder = new StringBuilder();
+    private StringBuilder categoryBuilder = new StringBuilder();
+    private StringBuilder tagBuilder = new StringBuilder();
 
     public LinkViewHolder(View v) {
         super(v);
-        linkCategory = itemView.findViewById(R.id.category_link);
-        linkTag = itemView.findViewById(R.id.tag_link);
-        linkLink = v.findViewById(R.id.link_link);
-        linkBuilder = new StringBuilder();
-        categoryBuilder = new StringBuilder();
-        tagBuilder = new StringBuilder();
-        textLoad = itemView.findViewById(R.id.load_txt_link);
+        ButterKnife.bind(this, v);
     }
 
     public void bind(PublishModel publishModel) {

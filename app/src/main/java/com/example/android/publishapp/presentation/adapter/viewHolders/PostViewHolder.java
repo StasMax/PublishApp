@@ -11,34 +11,34 @@ import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.squareup.picasso.Picasso;
 
-import java.util.Map;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class PostViewHolder extends RecyclerView.ViewHolder {
-    private TextView postCategory;
-    private TextView postTag;
-    private TextView postHeader;
-    private TextView postDescription;
-    private ImageView postFilePicture;
-    private TextView postLink;
-    private TextView postLinkWord;
-    private StringBuilder categoryBuilder;
-    private StringBuilder tagBuilder;
-    private StringBuilder linkBuilder;
-    private TextView textLoad;
+    @BindView(R.id.category_post)
+    TextView postCategory;
+    @BindView(R.id.tag_post)
+    TextView postTag;
+    @BindView(R.id.header_post)
+    TextView postHeader;
+    @BindView(R.id.description_post)
+    TextView postDescription;
+    @BindView(R.id.file_picture_post)
+    ImageView postFilePicture;
+    @BindView(R.id.link_post)
+    TextView postLink;
+    @BindView(R.id.link_post_word)
+    TextView postLinkWord;
+    @BindView(R.id.load_txt_post)
+    TextView textLoad;
+    private StringBuilder categoryBuilder = new StringBuilder();
+    private StringBuilder tagBuilder = new StringBuilder();
+    private StringBuilder linkBuilder = new StringBuilder();
 
-    public PostViewHolder(View itemView) {
-        super(itemView);
-        postCategory = itemView.findViewById(R.id.category_post);
-        postTag = itemView.findViewById(R.id.tag_post);
-        postHeader = itemView.findViewById(R.id.header_post);
-        postDescription = itemView.findViewById(R.id.description_post);
-        postFilePicture = itemView.findViewById(R.id.file_picture_post);
-        postLink = itemView.findViewById(R.id.link_post);
-        postLinkWord = itemView.findViewById(R.id.link_post_word);
-        categoryBuilder = new StringBuilder();
-        tagBuilder = new StringBuilder();
-        linkBuilder = new StringBuilder();
-        textLoad = itemView.findViewById(R.id.load_txt_post);
+
+    public PostViewHolder(View v) {
+        super(v);
+        ButterKnife.bind(this, v);
     }
 
     public void bind(PublishModel publishModel) {
