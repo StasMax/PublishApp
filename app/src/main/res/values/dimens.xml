@@ -4,10 +4,10 @@
     <dimen name="post_height_picture_size">68dp</dimen>
     <dimen name="event_width_picture_size">180dp</dimen>
     <dimen name="event_height_picture_size">100dp</dimen>
-    <dimen name="text_size">16dp</dimen>
-    <dimen name="link_size">14dp</dimen>
-    <dimen name="category_text_size">14dp</dimen>
-    <dimen name="tag_text_size">14dp</dimen>
-    <dimen name="margin_left">10dp</dimen>
-    <dimen name="margin_edit_text">8dp</dimen>
+    <dimen name="text_size">16sp</dimen>
+    <dimen name="link_size">14sp</dimen>
+    <dimen name="category_text_size">14sp</dimen>
+    <dimen name="tag_text_size">14sp</dimen>
+    <dimen name="horizontal_default_margin">10dp</dimen>
+    <dimen name="margin_edit_text">8sp</dimen>
 </resources>

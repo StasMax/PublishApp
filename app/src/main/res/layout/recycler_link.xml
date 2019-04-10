@@ -7,14 +7,14 @@
 
     <TextView
         android:id="@+id/load_txt_link"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_left"
+        android:layout_marginStart="@dimen/horizontal_default_margin"
         android:orientation="horizontal">
 
         <TextView
@@ -27,7 +27,7 @@
             android:id="@+id/category_link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginStart="@dimen/horizontal_default_margin"
             android:textSize="@dimen/category_text_size"
             android:textStyle="bold" />
     </LinearLayout>
@@ -35,7 +35,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_left"
+        android:layout_marginStart="@dimen/horizontal_default_margin"
         android:orientation="horizontal">
 
         <TextView
@@ -48,7 +48,7 @@
             android:id="@+id/tag_link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginStart="@dimen/horizontal_default_margin"
             android:textSize="@dimen/tag_text_size"
             android:textStyle="italic" />
     </LinearLayout>
@@ -56,20 +56,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_left"
+        android:layout_marginStart="@dimen/horizontal_default_margin"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginStart="@dimen/horizontal_default_margin"
             android:text="@string/link" />
 
         <TextView
             android:id="@+id/link_link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginStart="@dimen/horizontal_default_margin"
             android:textSize="@dimen/link_size" />
     </LinearLayout>
 </LinearLayout>

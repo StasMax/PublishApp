@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         PublishDiffUtilCallback publishDiffUtil = new PublishDiffUtilCallback();
         pagerAdapter = new PublishPagedListAdapter(publishDiffUtil.diffUtilCallback);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), OrientationHelper.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, OrientationHelper.VERTICAL, false));
         recyclerView.setAdapter(pagerAdapter);
         pagedListLiveData.observe(this, publishModels -> pagerAdapter.submitList(publishModels));
     }
