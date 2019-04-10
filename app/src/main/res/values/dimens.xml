@@ -9,5 +9,7 @@
     <dimen name="category_text_size">14sp</dimen>
     <dimen name="tag_text_size">14sp</dimen>
     <dimen name="horizontal_default_margin">10dp</dimen>
-    <dimen name="margin_edit_text">8sp</dimen>
+    <dimen name="margin_edit_text">4dp</dimen>
+    <dimen name="vertical_default_margin">10dp</dimen>
+    <dimen name="default_margin">8dp</dimen>
 </resources>
