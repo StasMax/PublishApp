@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.example.android.publishapp.presentation.Constant.TYPE_EVENT;
 @InjectViewState
-public class EventPresenter extends BasePresenter<PublishView> {
+public class EventPresenter extends CommonFieldsPresenter<PublishView> {
     private IPublishIteractor publishIteractor;
 
     @Inject

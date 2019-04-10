@@ -11,7 +11,6 @@ import com.arellomobile.mvp.MvpView;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,51 +25,7 @@ import static com.example.android.publishapp.presentation.app.App.getStorageRefe
 public class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     @Getter
-    private List<String> fileImage;
-    @Getter
-    private String[] categories = null;
-    @Getter
-    private String[] tags = null;
-    @Getter
-    private String header = null;
-    @Getter
-    private String description = null;
-    @Getter
-    private List<String> links;
-    @Getter
-    private List<String> linksNames;
-
-    public BasePresenter() {
-        fileImage = new ArrayList<>();
-        links = new ArrayList<>();
-        linksNames = new ArrayList<>();
-    }
-
-    public void fieldCategory(String category) {
-        categories = category.split(", ");
-    }
-
-    public void fieldTag(String tag) {
-        tags = tag.split(", ");
-    }
-
-    public void fieldHeader(String headerField) {
-        header = headerField;
-    }
-
-    public void fieldDescription(String descriptionField) {
-        description = descriptionField;
-    }
-
-    public void fieldLink(String link) {
-        String[] linkSplit = link.split(", ");
-        links = Arrays.asList(linkSplit);
-    }
-
-    public void fieldLinkName(String linkName) {
-        String[] linkSplit = linkName.split(", ");
-        linksNames = Arrays.asList(linkSplit);
-    }
+    private List<String> fileImage = new ArrayList<>();
 
     public void disposeBag(Disposable disposable) {
         compositeDisposable.add(disposable);

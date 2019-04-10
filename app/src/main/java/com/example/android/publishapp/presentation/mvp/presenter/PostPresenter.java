@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
 
 @InjectViewState
-public class PostPresenter extends BasePresenter<PublishView> {
+public class PostPresenter extends CommonFieldsPresenter<PublishView> {
     private IPublishIteractor publishIteractor;
 
     @Inject

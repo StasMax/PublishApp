@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.example.android.publishapp.presentation.Constant.TYPE_LINK;
 @InjectViewState
-public class LinkPresenter extends BasePresenter<PublishView> {
+public class LinkPresenter extends CommonFieldsPresenter<PublishView> {
     private IPublishIteractor publishIteractor;
 
     @Inject
