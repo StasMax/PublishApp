@@ -1,6 +1,5 @@
 package com.example.android.publishapp.di.component;
 
-import com.example.android.publishapp.di.module.FirebaseModule;
 import com.example.android.publishapp.di.module.PagerModule;
 import com.example.android.publishapp.di.module.PublishModule;
 import com.example.android.publishapp.presentation.mvp.ui.MainActivity;
@@ -14,7 +13,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(dependencies = {}, modules = {PublishModule.class, PagerModule.class, FirebaseModule.class})
+@Component(dependencies = {}, modules = {PublishModule.class, PagerModule.class})
 public interface AppComponent {
 
     void inject(MainActivity mainActivity);

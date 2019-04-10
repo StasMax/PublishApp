@@ -2,7 +2,6 @@ package com.example.android.publishapp.presentation.mvp.ui.fragment;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,6 @@ import com.example.android.publishapp.presentation.app.App;
 import com.example.android.publishapp.presentation.mvp.presenter.LinkPresenter;
 import com.example.android.publishapp.presentation.mvp.view.PublishView;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import javax.inject.Inject;
 
@@ -26,12 +23,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class LinkFragment extends MvpAppCompatFragment implements PublishView {
-    FirebaseStorage storage;
-    StorageReference storageReference;
 
     @Inject
     @InjectPresenter
@@ -44,10 +36,7 @@ public class LinkFragment extends MvpAppCompatFragment implements PublishView {
 
     private Unbinder unbinder;
 
-    public LinkFragment() {
-        // Required empty public constructor
-    }
-
+    public LinkFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,9 +45,6 @@ public class LinkFragment extends MvpAppCompatFragment implements PublishView {
         FirebaseApp.initializeApp(getContext());
         View view = inflater.inflate(R.layout.fragment_link, container, false);
         unbinder = ButterKnife.bind(this, view);
-        FirebaseApp app = FirebaseApp.getInstance();
-        storage = FirebaseStorage.getInstance(app);
-        storageReference = storage.getReference("images");
         return view;
     }
     @OnTextChanged(R.id.edit_category_link)

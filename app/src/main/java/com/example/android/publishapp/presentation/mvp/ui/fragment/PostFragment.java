@@ -15,7 +15,6 @@ import com.example.android.publishapp.R;
 import com.example.android.publishapp.presentation.app.App;
 import com.example.android.publishapp.presentation.mvp.presenter.PostPresenter;
 import com.example.android.publishapp.presentation.mvp.view.PublishView;
-import com.google.firebase.storage.StorageReference;
 
 import javax.inject.Inject;
 
@@ -28,8 +27,6 @@ import static com.example.android.publishapp.presentation.Constant.PICK_IMAGE;
 
 public class PostFragment extends MvpAppCompatFragment implements PublishView {
 
-    @Inject
-    StorageReference storageReference;
     private Unbinder unbinder;
     @Inject
     @InjectPresenter
@@ -103,7 +100,7 @@ public class PostFragment extends MvpAppCompatFragment implements PublishView {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        postPresenter.initUploadImage(requestCode, resultCode, data, storageReference, getContext());
+        postPresenter.initUploadImage(requestCode, resultCode, data, getContext());
     }
 
     @Override

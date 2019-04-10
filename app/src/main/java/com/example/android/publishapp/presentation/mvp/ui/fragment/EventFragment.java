@@ -15,9 +15,6 @@ import com.example.android.publishapp.R;
 import com.example.android.publishapp.presentation.app.App;
 import com.example.android.publishapp.presentation.mvp.presenter.EventPresenter;
 import com.example.android.publishapp.presentation.mvp.view.PublishView;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import javax.inject.Inject;
 
@@ -29,8 +26,6 @@ import butterknife.Unbinder;
 import static com.example.android.publishapp.presentation.Constant.PICK_IMAGE;
 
 public class EventFragment extends MvpAppCompatFragment implements PublishView {
-    FirebaseStorage storage;
-    StorageReference storageReference;
 
     @Inject
     @InjectPresenter
@@ -43,21 +38,14 @@ public class EventFragment extends MvpAppCompatFragment implements PublishView {
 
     private Unbinder unbinder;
 
-    public EventFragment() {
-        // Required empty public constructor
-    }
-
+    public EventFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         App.getComponent().inject(this);
-        FirebaseApp.initializeApp(getContext());
         View view = inflater.inflate(R.layout.fragment_event, container, false);
         unbinder = ButterKnife.bind(this, view);
-        FirebaseApp app = FirebaseApp.getInstance();
-        storage = FirebaseStorage.getInstance(app);
-        storageReference = storage.getReference("images");
         return view;
     }
 
@@ -112,7 +100,7 @@ public class EventFragment extends MvpAppCompatFragment implements PublishView {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        eventPresenter.initUploadImage(requestCode, resultCode, data, storageReference, getContext());
+        eventPresenter.initUploadImage(requestCode, resultCode, data, getContext());
     }
 
     @Override

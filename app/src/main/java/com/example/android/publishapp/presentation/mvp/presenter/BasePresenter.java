@@ -21,6 +21,7 @@ import lombok.Getter;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.android.publishapp.presentation.Constant.PICK_IMAGE;
+import static com.example.android.publishapp.presentation.app.App.getStorageReference;
 
 public class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -80,7 +81,7 @@ public class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
         compositeDisposable = new CompositeDisposable();
     }
 
-    public void initUploadImage(int requestCode, int resultCode, Intent data, StorageReference storageReference, Context context) {
+    public void initUploadImage(int requestCode, int resultCode, Intent data, Context context) {
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             Uri filePath = data.getData();
@@ -88,7 +89,7 @@ public class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
                 final ProgressDialog progressDialog = new ProgressDialog(context);
                 progressDialog.setTitle("Uploading...");
                 progressDialog.show();
-                StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
+                StorageReference ref = getStorageReference().child("images/" + UUID.randomUUID().toString());
                 ref.putFile(filePath)
                         .addOnSuccessListener(taskSnapshot -> {
                             progressDialog.dismiss();

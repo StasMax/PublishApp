@@ -7,6 +7,8 @@ import com.example.android.publishapp.di.component.AppComponent;
 import com.example.android.publishapp.di.component.DaggerAppComponent;
 import com.example.android.publishapp.di.module.PublishModule;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -20,6 +22,7 @@ public class App extends Application {
 
     private static AppComponent component;
     private static Retrofit retrofit;
+    private static StorageReference storageReference;
     private static final String BASE_URL = "https://publishapp-c497e.firebaseio.com/";
 
     @Override
@@ -28,7 +31,9 @@ public class App extends Application {
         component = DaggerAppComponent.builder()
                 .publishModule(new PublishModule())
                 .build();
+
         FirebaseApp.initializeApp(this);
+        storageReference = FirebaseStorage.getInstance().getReference("images");
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
@@ -54,5 +59,9 @@ public class App extends Application {
 
     public static Retrofit getRetrofit() {
         return retrofit;
+    }
+
+    public static StorageReference getStorageReference() {
+        return storageReference;
     }
 }
