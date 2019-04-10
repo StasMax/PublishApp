@@ -8,29 +8,35 @@ import com.example.android.publishapp.presentation.mvp.ui.fragment.EventFragment
 import com.example.android.publishapp.presentation.mvp.ui.fragment.LinkFragment;
 import com.example.android.publishapp.presentation.mvp.ui.fragment.PostFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FragmentsViewPagerAdapter extends FragmentPagerAdapter {
-    static final int PAGE_COUNT = 3;
+
+    private List<Fragment> fragments = new ArrayList<>();
 
     public FragmentsViewPagerAdapter(FragmentManager fm) {
         super(fm);
+        fragments.add(new PostFragment());
+        fragments.add(new EventFragment());
+        fragments.add(new LinkFragment());
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new PostFragment();
+                return fragments.get(0);
             case 1:
-                return new EventFragment();
+                return fragments.get(1);
             case 2:
-                return new LinkFragment();
+                return fragments.get(2);
         }
         return null;
     }
 
     @Override
     public int getCount() {
-        return PAGE_COUNT;
+        return fragments.size();
     }
-
 }
