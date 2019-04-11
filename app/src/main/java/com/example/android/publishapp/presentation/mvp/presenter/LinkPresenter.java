@@ -12,6 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.example.android.publishapp.presentation.Constant.TYPE_LINK;
+
 @InjectViewState
 public class LinkPresenter extends CommonFieldsPresenter<PublishView> {
     private IPublishIteractor publishIteractor;
@@ -25,8 +26,15 @@ public class LinkPresenter extends CommonFieldsPresenter<PublishView> {
         if (getCategories() == null || getTags() == null || getLinks().size() != getLinksNames().size()) {
             getViewState().showMesage(R.string.error_fields);
         } else {
-            PublishModel publishModel = new PublishModel(getCategories(), getTags(), getLinks(), getLinksNames(), TYPE_LINK);
-            disposeBag(publishIteractor.insertPostInDb(publishModel)
+            PublishModel publishModel = PublishModel.builder()
+                    .category(getCategories())
+                    .tag(getTags())
+                    .link(getLinks())
+                    .linkName(getLinksNames())
+                    .type(TYPE_LINK)
+                    .build();
+
+           disposeBag(publishIteractor.insertPostInDb(publishModel)
                     .doOnSuccess(publishModel1 -> getViewState().showMesage(R.string.success_post))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

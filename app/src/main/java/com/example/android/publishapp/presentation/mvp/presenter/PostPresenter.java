@@ -27,7 +27,16 @@ public class PostPresenter extends CommonFieldsPresenter<PublishView> {
         if (getCategories() == null || getTags() == null || getLinks().size() != getLinksNames().size()) {
             getViewState().showMesage(R.string.error_fields);
         } else {
-            PublishModel publishModel = new PublishModel(getCategories(), getTags(), getHeader(), getDescription(), getFileImage(), getLinks(), getLinksNames(), TYPE_POST);
+            PublishModel publishModel = PublishModel.builder()
+                    .category(getCategories())
+                    .tag(getTags())
+                    .header(getHeader())
+                    .description(getDescription())
+                    .filePicture(getFileImage())
+                    .link(getLinks())
+                    .linkName(getLinksNames())
+                    .type(TYPE_POST)
+                    .build();
 
             disposeBag(publishIteractor.insertPostInDb(publishModel)
                     .doOnSuccess(publishModel1 -> getViewState().showMesage(R.string.success_post))
