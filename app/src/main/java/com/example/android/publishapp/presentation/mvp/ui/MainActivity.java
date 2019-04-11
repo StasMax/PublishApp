@@ -50,7 +50,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         publishAdapterRv = new PublishAdapterRv();
         recyclerView.setLayoutManager(new LinearLayoutManager(this, OrientationHelper.VERTICAL, false));
         recyclerView.setAdapter(publishAdapterRv);
-
     }
 
     @Override

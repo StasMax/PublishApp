@@ -57,12 +57,14 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
             }
             categoryBuilder.deleteCharAt(categoryBuilder.length() - 1);
             eventCategory.setText(categoryBuilder.toString());
+            categoryBuilder.setLength(0);
 
             for (String tag : publishModel.getTag()) {
                 tagBuilder.append(" ").append(tag).append(",");
             }
             tagBuilder.deleteCharAt(tagBuilder.length() - 1);
             eventTag.setText(tagBuilder.toString());
+            tagBuilder.setLength(0);
 
             if (publishModel.getLink() != null || publishModel.getLinkName() != null) {
                 for (int i = 0; i < publishModel.getLink().size(); i++) {
@@ -71,6 +73,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
                 linkBuilder.deleteCharAt(linkBuilder.length() - 1);
                 eventLink.setText(Html.fromHtml(linkBuilder.toString()));
                 eventLink.setMovementMethod(LinkMovementMethod.getInstance());
+                linkBuilder.setLength(0);
             } else {
                 eventLink.setVisibility(GONE);
                 eventLinkWord.setVisibility(GONE);
@@ -103,6 +106,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
                 eventDateWord.setVisibility(GONE);
             }
         }
+
     }
 
     private void setImageInFlipper(String imageUrl) {

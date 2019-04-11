@@ -39,12 +39,14 @@ public class LinkViewHolder extends RecyclerView.ViewHolder {
             }
             categoryBuilder.deleteCharAt(categoryBuilder.length() - 1);
             linkCategory.setText(categoryBuilder.toString());
+            categoryBuilder.setLength(0);
 
             for (String tag : publishModel.getTag()) {
                 tagBuilder.append(" ").append(tag).append(",");
             }
             tagBuilder.deleteCharAt(tagBuilder.length() - 1);
             linkTag.setText(tagBuilder.toString());
+            tagBuilder.setLength(0);
 
             if (publishModel.getLink() != null) {
                 for (int i = 0; i < publishModel.getLink().size(); i++) {
@@ -53,6 +55,7 @@ public class LinkViewHolder extends RecyclerView.ViewHolder {
                 linkBuilder.deleteCharAt(linkBuilder.length() - 1);
                 linkLink.setText(Html.fromHtml(linkBuilder.toString()));
                 linkLink.setMovementMethod(LinkMovementMethod.getInstance());
+                linkBuilder.setLength(0);
             }
         }
     }
