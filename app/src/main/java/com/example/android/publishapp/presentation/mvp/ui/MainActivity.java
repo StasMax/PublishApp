@@ -49,7 +49,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         adapter = new PublishAdapterRv();
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), OrientationHelper.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, OrientationHelper.VERTICAL, false));
         recyclerView.setAdapter(adapter);
     }
 
