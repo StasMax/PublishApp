@@ -7,8 +7,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
-import retrofit2.Call;
 
 public class PublishIteractorImpl implements IPublishIteractor {
     private IPublishRepository publishRepository;
@@ -24,7 +24,7 @@ public class PublishIteractorImpl implements IPublishIteractor {
     }
 
     @Override
-    public Call<Map<String, PublishModel>> getAllPostsFromDbCallback(int page, int pageSize) {
-        return publishRepository.getPublishModelListCallback(page, pageSize);
+    public Flowable<Map<String, PublishModel>> getAllPostsFromDb() {
+        return publishRepository.getPublishModelList();
     }
 }

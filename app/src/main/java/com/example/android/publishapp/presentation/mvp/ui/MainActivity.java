@@ -1,19 +1,24 @@
 package com.example.android.publishapp.presentation.mvp.ui;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.paging.PagedList;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
+
+import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
-import com.example.android.publishapp.presentation.adapter.PublishDiffUtilCallback;
-import com.example.android.publishapp.presentation.adapter.PublishPagedListAdapter;
+import com.example.android.publishapp.presentation.adapter.PublishAdapterRv;
 import com.example.android.publishapp.presentation.app.App;
+import com.example.android.publishapp.presentation.mvp.presenter.MainPresenter;
+import com.example.android.publishapp.presentation.mvp.view.MainView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -21,14 +26,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MvpAppCompatActivity implements MainView {
     @BindView(R.id.recycler_publishes)
     RecyclerView recyclerView;
     @BindView(R.id.txt_empty_list)
     TextView textEmptyList;
-    private PublishPagedListAdapter pagerAdapter;
+    private PublishAdapterRv publishAdapterRv;
     @Inject
-    LiveData<PagedList<PublishModel>> pagedListLiveData;
+    @InjectPresenter
+    MainPresenter mainPresenter;
+
+    @ProvidePresenter
+    MainPresenter providePresenter() {
+        return mainPresenter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +47,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        PublishDiffUtilCallback publishDiffUtil = new PublishDiffUtilCallback();
-        pagerAdapter = new PublishPagedListAdapter(publishDiffUtil.diffUtilCallback);
+        publishAdapterRv = new PublishAdapterRv();
         recyclerView.setLayoutManager(new LinearLayoutManager(this, OrientationHelper.VERTICAL, false));
-        recyclerView.setAdapter(pagerAdapter);
-        pagedListLiveData.observe(this, publishModels -> pagerAdapter.submitList(publishModels));
+        recyclerView.setAdapter(publishAdapterRv);
+
+    }
+
+    @Override
+    public void setupEmptyList() {
+        recyclerView.setVisibility(View.GONE);
+        textEmptyList.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setupPublishList(List<PublishModel> publishList) {
+        recyclerView.setVisibility(View.VISIBLE);
+        textEmptyList.setVisibility(View.GONE);
+        publishAdapterRv.setupPublishers(publishList);
     }
 
     @OnClick(R.id.float_button)
     void onSaveClick() {
         startActivity(new Intent(MainActivity.this, PublishActivity.class));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mainPresenter.initPublishers();
     }
 }
