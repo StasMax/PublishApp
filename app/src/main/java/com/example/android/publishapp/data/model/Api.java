@@ -12,7 +12,7 @@ import retrofit2.http.Path;
 public interface Api {
 
     @GET("/post/newPost.json")
-    Flowable<Map<String, PublishModel>> getAllPublishes();
+    Single<Map<String, PublishModel>> getAllPublishes();
 
     @POST("post/{new}.json")
     Single<PublishModel> setPublish(@Path("new") String s1, @Body PublishModel publishModel);

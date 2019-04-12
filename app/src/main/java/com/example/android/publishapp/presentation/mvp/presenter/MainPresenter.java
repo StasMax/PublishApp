@@ -15,6 +15,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
 @InjectViewState
@@ -37,9 +38,19 @@ public class MainPresenter extends BasePresenter<MainView> {
     public void initPublishersRecycle(Map<String, PublishModel> publishModels) {
         modelList.clear();
         modelList.addAll(publishModels.values());
+        Log.e("EEE", modelList.toString());
         if (publishModels.size() == 0) {
             getViewState().setupEmptyList();
         }
-        getViewState().setupPublishList(modelList);
+        getViewState().setupPublishList();
+        getViewState().loadFirstPage();
+    }
+
+    public List<PublishModel> initList(int itemCount) {
+        List<PublishModel>models = new ArrayList<>();
+        for (int i = itemCount; i < itemCount+3 && i < modelList.size(); i++) {
+            models.add(modelList.get(i));
+        }
+        return models;
     }
 }

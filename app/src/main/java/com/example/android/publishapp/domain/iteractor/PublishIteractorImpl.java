@@ -24,7 +24,7 @@ public class PublishIteractorImpl implements IPublishIteractor {
     }
 
     @Override
-    public Flowable<Map<String, PublishModel>> getAllPostsFromDb() {
+    public Single<Map<String, PublishModel>> getAllPostsFromDb() {
         return publishRepository.getPublishModelList();
     }
 }

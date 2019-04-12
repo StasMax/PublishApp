@@ -39,6 +39,7 @@ public class PostPresenter extends CommonFieldsPresenter<PublishView> {
                     .build();
 
             disposeBag(publishIteractor.insertPostInDb(publishModel)
+                    .doAfterSuccess(publishModel12 -> getFileImage().clear())
                     .doOnSuccess(publishModel1 -> getViewState().showMesage(R.string.success_post))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

@@ -14,6 +14,7 @@ import java.util.Calendar;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.example.android.publishapp.presentation.Constant.TYPE_EVENT;
@@ -43,6 +44,7 @@ public class EventPresenter extends CommonFieldsPresenter<PublishView> {
                     .build();
 
             disposeBag(publishIteractor.insertPostInDb(publishModel)
+                    .doAfterSuccess(publishModel12 -> getFileImage().clear())
                     .doOnSuccess(publishModel1 -> getViewState().showMesage(R.string.success_post))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

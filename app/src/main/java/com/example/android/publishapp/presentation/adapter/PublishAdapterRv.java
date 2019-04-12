@@ -24,11 +24,16 @@ import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
 public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<PublishModel> publishModelList = new ArrayList<>();
+    private boolean isLoadingAdded = false;
 
     public void setupPublishers(List<PublishModel> publishModels) {
         publishModelList.clear();
         publishModelList.addAll(publishModels);
         notifyDataSetChanged();
+    }
+
+    public void setupPublisher(PublishModel publishModel){
+        publishModelList.add(publishModel);
     }
 
     @NonNull
@@ -81,5 +86,36 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
         }
         return 0;
+    }
+
+    public void add(PublishModel movie) {
+        publishModelList.add(movie);
+        notifyItemInserted(publishModelList.size() - 1);
+    }
+    public void addAll(List<PublishModel> modelResults) {
+        for (PublishModel result : modelResults) {
+            add(result);
+        }
+    }
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+        add(new PublishModel());
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = publishModelList.size() - 1;
+        PublishModel item = getItem(position);
+
+        if (item != null) {
+            publishModelList.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public PublishModel getItem(int position) {
+        return publishModelList.get(position);
     }
 }

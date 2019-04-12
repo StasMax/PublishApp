@@ -24,7 +24,7 @@ public class PublishRepositoryImpl implements IPublishRepository {
     }
 
     @Override
-    public Flowable<Map<String, PublishModel>> getPublishModelList() {
+    public Single<Map<String, PublishModel>> getPublishModelList() {
         return api.getAllPublishes();
     }
 }

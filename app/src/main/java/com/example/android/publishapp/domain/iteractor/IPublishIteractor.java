@@ -11,5 +11,5 @@ public interface IPublishIteractor {
 
     Single<PublishModel> insertPostInDb(PublishModel publishModel);
 
-    Flowable<Map<String, PublishModel>> getAllPostsFromDb();
+    Single<Map<String, PublishModel>> getAllPostsFromDb();
 }

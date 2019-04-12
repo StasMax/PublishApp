@@ -11,5 +11,5 @@ public interface IPublishRepository {
 
     Single<PublishModel> insertPublishModel(PublishModel publishModel);
 
-    Flowable<Map<String, PublishModel>> getPublishModelList();
+    Single<Map<String, PublishModel>> getPublishModelList();
 }
