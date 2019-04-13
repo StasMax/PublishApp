@@ -14,5 +14,7 @@ public interface MainView extends MvpView {
 
     void setupPublishList();
 
-    void loadFirstPage();
+    void loadFirstPage(List<PublishModel> publishModels);
+
+    void loadNextPage(List<PublishModel> publishModels);
 }

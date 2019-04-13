@@ -61,7 +61,7 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
                 case TYPE_LINK:
                     ((LinkViewHolder) viewHolder).bind(publishModelList.get(i));
                     break;
-                default:
+                case LOADING:
                     break;
             }
         }
@@ -119,7 +119,7 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void addLoadingFooter() {
         isLoadingAdded = true;
-        add(new PublishModel());
+        add(new PublishModel(LOADING));
     }
 
     public void removeLoadingFooter() {

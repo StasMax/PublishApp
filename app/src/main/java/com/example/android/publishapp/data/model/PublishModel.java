@@ -42,7 +42,8 @@ public class PublishModel {
     @Expose
     private int type;
 
-    public PublishModel() {
+    public PublishModel(int type) {
+        this.type = type;
     }
 
     public PublishModel(String[] category, String[] tag, String header, String description, List<String> filePicture, List<String> link, List<String> linkName, String date, int type) {

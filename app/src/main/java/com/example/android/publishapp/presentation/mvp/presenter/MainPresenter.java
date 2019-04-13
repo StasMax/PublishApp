@@ -14,10 +14,12 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.example.android.publishapp.presentation.Constant.LOAD_ITEM_SIZE;
@@ -25,6 +27,7 @@ import static com.example.android.publishapp.presentation.Constant.LOAD_ITEM_SIZ
 @InjectViewState
 public class MainPresenter extends BasePresenter<MainView> {
     private List<PublishModel> modelList = new ArrayList<>();
+    final int batchSize = 10;
     private IPublishIteractor publishIteractor;
 
     @Inject
@@ -32,29 +35,54 @@ public class MainPresenter extends BasePresenter<MainView> {
         this.publishIteractor = publishIteractor;
     }
 
-    public void initPublishers() {
+  /*  public void initPublishers() {
         disposeBag(publishIteractor.getAllPostsFromDb()
                 .doOnSubscribe(disposable -> modelList.clear())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::initPublishersRecycle, Throwable::printStackTrace));
-    }
+    }*/
 
     public void initPublishersRecycle(Map<String, PublishModel> publishModels) {
         modelList.clear();
         modelList.addAll(publishModels.values());
+
         if (publishModels.size() == 0) {
             getViewState().setupEmptyList();
         }
         getViewState().setupPublishList();
-        getViewState().loadFirstPage();
+            }
+
+    public void initNextPage(int currentPage) {
+        List<PublishModel> models = new ArrayList<>();
+       publishIteractor.getAllPostsFromDb(currentPage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Map<String, PublishModel>>() {
+                    @Override
+                    public void onSuccess(Map<String, PublishModel> stringPublishModelMap) {
+                        models.addAll(stringPublishModelMap.values());
+                        getViewState().loadNextPage(models);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
     }
 
-    public List<PublishModel> initList(int itemCount) {
+    public void initFirstPage(int currentPage) {
         List<PublishModel> models = new ArrayList<>();
-        for (int i = itemCount; i < itemCount + LOAD_ITEM_SIZE && i < modelList.size(); i++) {
-            models.add(modelList.get(i));
-        }
-        return models;
+        disposeBag(publishIteractor.getAllPostsFromDb(currentPage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(publishModels -> {
+                    models.addAll(publishModels.values());
+                    getViewState().loadFirstPage(models);
+                }, Throwable::printStackTrace));
+
+
+
     }
 }

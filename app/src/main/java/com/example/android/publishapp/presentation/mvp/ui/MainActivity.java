@@ -43,10 +43,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     ProgressBar progressBar;
     private PublishAdapterRv publishAdapterRv;
     private int currentPage = PAGE_START;
-    private int TOTAL_PAGES = 3;
+    private int TOTAL_PAGES = 5;
     private boolean isLoading = false, isLastPage = false;
-    private List<PublishModel>listModels = new ArrayList<>();
-    private List<PublishModel>itemsList = new ArrayList<>();
+    private List<PublishModel> listModels = new ArrayList<>();
+    private List<PublishModel> itemsList = new ArrayList<>();
     @Inject
     @InjectPresenter
     MainPresenter mainPresenter;
@@ -68,19 +68,15 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(publishAdapterRv);
-        mainPresenter.initPublishers();
+
         recyclerView.addOnScrollListener(new PaginationScrollListener(layoutManager) {
             @Override
             protected void loadMoreItems() {
+                isLoading = true;
                 currentPage += 1;
-              //  loadNextPage();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadNextPage();
-                    }
-                }, 5000);
+                new Handler().postDelayed(() -> mainPresenter.initNextPage(currentPage), 2000);
             }
+
             @Override
             public int getTotalPageCount() {
                 return TOTAL_PAGES;
@@ -97,20 +93,26 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
             }
         });
 
-
+        mainPresenter.initFirstPage(currentPage);
     }
 
-    public void loadFirstPage() {
-        List<PublishModel> publishModels = mainPresenter.initList(publishAdapterRv.getItemCount());
+    public void loadFirstPage(List<PublishModel> publishModels) {
+
         progressBar.setVisibility(View.GONE);
         publishAdapterRv.addAll(publishModels);
-            }
+        if (currentPage <= TOTAL_PAGES) publishAdapterRv.addLoadingFooter();
+        else isLastPage = true;
+    }
 
 
-    private void loadNextPage() {
-        List<PublishModel> publishModels = mainPresenter.initList(publishAdapterRv.getItemCount());
-           publishAdapterRv.addAll(publishModels);
-            }
+    public void loadNextPage(List<PublishModel> publishModels) {
+        publishAdapterRv.removeLoadingFooter();
+        isLoading = false;
+
+        publishAdapterRv.addAll(publishModels);
+        if (currentPage != TOTAL_PAGES) publishAdapterRv.addLoadingFooter();
+        else isLastPage = true;
+    }
 
 
     @Override
@@ -124,7 +126,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         recyclerView.setVisibility(View.VISIBLE);
         textEmptyList.setVisibility(View.GONE);
 
-      //  publishAdapterRv.addAll(publishList);
+        //  publishAdapterRv.addAll(publishList);
     }
 
     @OnClick(R.id.float_button)
