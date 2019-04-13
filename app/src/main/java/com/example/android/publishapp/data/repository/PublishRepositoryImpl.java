@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 public class PublishRepositoryImpl implements IPublishRepository {
@@ -24,7 +23,7 @@ public class PublishRepositoryImpl implements IPublishRepository {
     }
 
     @Override
-    public Single<Map<String, PublishModel>> getPublishModelList() {
-        return api.getAllPublishes();
+    public Single<Map<String, PublishModel>> getPublishModelList(int pageIndex) {
+        return api.getAllPublishes(pageIndex);
     }
 }

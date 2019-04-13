@@ -10,11 +10,13 @@ import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.presentation.adapter.viewHolders.EventViewHolder;
 import com.example.android.publishapp.presentation.adapter.viewHolders.LinkViewHolder;
+import com.example.android.publishapp.presentation.adapter.viewHolders.LoadingVH;
 import com.example.android.publishapp.presentation.adapter.viewHolders.PostViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.android.publishapp.presentation.Constant.LOADING;
 import static com.example.android.publishapp.presentation.Constant.TYPE_LINK;
 import static com.example.android.publishapp.presentation.Constant.TYPE_EVENT;
 import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
@@ -22,6 +24,7 @@ import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
 public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<PublishModel> publishModelList = new ArrayList<>();
+    private boolean isLoadingAdded = false;
 
     @NonNull
     @Override
@@ -38,6 +41,9 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
             case TYPE_LINK:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_link, viewGroup, false);
                 return new LinkViewHolder(view);
+            case LOADING:
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_progress, viewGroup, false);
+                return new LoadingVH(view);
         }
         return null;
     }
@@ -55,6 +61,8 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
                 case TYPE_LINK:
                     ((LinkViewHolder) viewHolder).bind(publishModelList.get(i));
                     break;
+                default:
+                    break;
             }
         }
     }
@@ -67,16 +75,67 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemViewType(int position) {
         if (publishModelList != null) {
-            PublishModel object = publishModelList.get(position);
-            if (object != null) {
-                return object.getType();
+            if (position == publishModelList.size() - 1 && isLoadingAdded) {
+                return LOADING;
+            } else {
+                PublishModel object = publishModelList.get(position);
+                if (object != null) {
+                    return object.getType();
+                }
             }
         }
         return 0;
     }
 
-    public void addAll(List<PublishModel> modelResults) {
-        publishModelList.addAll(modelResults);
-        notifyDataSetChanged();
+    public void add(PublishModel r) {
+        publishModelList.add(r);
+        notifyItemInserted(publishModelList.size() - 1);
     }
+
+    public void addAll(List<PublishModel> moveResults) {
+        for (PublishModel result : moveResults) {
+            add(result);
+        }
+    }
+
+    public void remove(PublishModel r) {
+        int position = publishModelList.indexOf(r);
+        if (position > -1) {
+            publishModelList.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
+    }
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+        add(new PublishModel());
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = publishModelList.size() - 1;
+        PublishModel result = getItem(position);
+
+        if (result != null) {
+            publishModelList.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public PublishModel getItem(int position) {
+        return publishModelList.get(position);
+    }
+
 }

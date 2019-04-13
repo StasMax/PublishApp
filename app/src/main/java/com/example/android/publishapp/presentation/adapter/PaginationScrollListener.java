@@ -2,7 +2,6 @@ package com.example.android.publishapp.presentation.adapter;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 public abstract class PaginationScrollListener extends RecyclerView.OnScrollListener {
 
@@ -27,7 +26,6 @@ public abstract class PaginationScrollListener extends RecyclerView.OnScrollList
                 loadMoreItems();
             }
         }
-
     }
 
     protected abstract void loadMoreItems();
@@ -37,6 +35,4 @@ public abstract class PaginationScrollListener extends RecyclerView.OnScrollList
     public abstract boolean isLastPage();
 
     public abstract boolean isLoading();
-
-
 }

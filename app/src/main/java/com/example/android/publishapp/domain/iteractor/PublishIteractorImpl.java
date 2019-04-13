@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 public class PublishIteractorImpl implements IPublishIteractor {
@@ -24,7 +23,7 @@ public class PublishIteractorImpl implements IPublishIteractor {
     }
 
     @Override
-    public Single<Map<String, PublishModel>> getAllPostsFromDb() {
-        return publishRepository.getPublishModelList();
+    public Single<Map<String, PublishModel>> getAllPostsFromDb(int pageIndex) {
+        return publishRepository.getPublishModelList(pageIndex);
     }
 }

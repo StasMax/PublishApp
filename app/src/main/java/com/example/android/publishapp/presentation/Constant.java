@@ -7,4 +7,5 @@ public class Constant {
     public static final int TYPE_POST = 0;
     public static final int TYPE_EVENT = 1;
     public static final int TYPE_LINK = 2;
+    public static final int LOADING = 3;
 }
