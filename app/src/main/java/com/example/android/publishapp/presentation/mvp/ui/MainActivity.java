@@ -2,6 +2,7 @@ package com.example.android.publishapp.presentation.mvp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -72,7 +73,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
             @Override
             protected void loadMoreItems() {
                 currentPage += 1;
-                loadNextPage();
+              //  loadNextPage();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadNextPage();
+                    }
+                }, 5000);
             }
             @Override
             public int getTotalPageCount() {
@@ -97,24 +104,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         List<PublishModel> publishModels = mainPresenter.initList(publishAdapterRv.getItemCount());
         progressBar.setVisibility(View.GONE);
         publishAdapterRv.addAll(publishModels);
-
-        if (currentPage <= TOTAL_PAGES) publishAdapterRv.addLoadingFooter();
-        else isLastPage = true;
-
-    }
+            }
 
 
     private void loadNextPage() {
         List<PublishModel> publishModels = mainPresenter.initList(publishAdapterRv.getItemCount());
-
-        publishAdapterRv.removeLoadingFooter();
-        isLoading = false;
-
-        publishAdapterRv.addAll(publishModels);
-
-        if (currentPage != TOTAL_PAGES) publishAdapterRv.addLoadingFooter();
-        else isLastPage = true;
-    }
+           publishAdapterRv.addAll(publishModels);
+            }
 
 
     @Override

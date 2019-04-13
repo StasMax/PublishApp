@@ -15,8 +15,12 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.example.android.publishapp.presentation.Constant.LOAD_ITEM_SIZE;
 
 @InjectViewState
 public class MainPresenter extends BasePresenter<MainView> {
@@ -30,6 +34,7 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     public void initPublishers() {
         disposeBag(publishIteractor.getAllPostsFromDb()
+                .doOnSubscribe(disposable -> modelList.clear())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::initPublishersRecycle, Throwable::printStackTrace));
@@ -38,7 +43,6 @@ public class MainPresenter extends BasePresenter<MainView> {
     public void initPublishersRecycle(Map<String, PublishModel> publishModels) {
         modelList.clear();
         modelList.addAll(publishModels.values());
-        Log.e("EEE", modelList.toString());
         if (publishModels.size() == 0) {
             getViewState().setupEmptyList();
         }
@@ -47,8 +51,8 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     public List<PublishModel> initList(int itemCount) {
-        List<PublishModel>models = new ArrayList<>();
-        for (int i = itemCount; i < itemCount+3 && i < modelList.size(); i++) {
+        List<PublishModel> models = new ArrayList<>();
+        for (int i = itemCount; i < itemCount + LOAD_ITEM_SIZE && i < modelList.size(); i++) {
             models.add(modelList.get(i));
         }
         return models;

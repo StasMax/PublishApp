@@ -2,6 +2,7 @@ package com.example.android.publishapp.presentation.adapter;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 public abstract class PaginationScrollListener extends RecyclerView.OnScrollListener {
 
@@ -18,7 +19,6 @@ public abstract class PaginationScrollListener extends RecyclerView.OnScrollList
         int visibleItemCount = layoutManager.getChildCount();
         int totalItemCount = layoutManager.getItemCount();
         int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-
 
         if (!isLoading() && !isLastPage()) {
             if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount

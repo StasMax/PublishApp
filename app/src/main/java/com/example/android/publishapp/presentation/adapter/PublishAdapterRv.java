@@ -2,7 +2,6 @@ package com.example.android.publishapp.presentation.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.example.android.publishapp.presentation.adapter.viewHolders.LinkViewH
 import com.example.android.publishapp.presentation.adapter.viewHolders.PostViewHolder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.example.android.publishapp.presentation.Constant.TYPE_LINK;
@@ -24,17 +22,6 @@ import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
 public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<PublishModel> publishModelList = new ArrayList<>();
-    private boolean isLoadingAdded = false;
-
-    public void setupPublishers(List<PublishModel> publishModels) {
-        publishModelList.clear();
-        publishModelList.addAll(publishModels);
-        notifyDataSetChanged();
-    }
-
-    public void setupPublisher(PublishModel publishModel){
-        publishModelList.add(publishModel);
-    }
 
     @NonNull
     @Override
@@ -74,7 +61,7 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        return publishModelList.size();
+        return publishModelList == null ? 0 : publishModelList.size();
     }
 
     @Override
@@ -88,34 +75,8 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
         return 0;
     }
 
-    public void add(PublishModel movie) {
-        publishModelList.add(movie);
-        notifyItemInserted(publishModelList.size() - 1);
-    }
     public void addAll(List<PublishModel> modelResults) {
-        for (PublishModel result : modelResults) {
-            add(result);
-        }
-    }
-
-    public void addLoadingFooter() {
-        isLoadingAdded = true;
-        add(new PublishModel());
-    }
-
-    public void removeLoadingFooter() {
-        isLoadingAdded = false;
-
-        int position = publishModelList.size() - 1;
-        PublishModel item = getItem(position);
-
-        if (item != null) {
-            publishModelList.remove(position);
-            notifyItemRemoved(position);
-        }
-    }
-
-    public PublishModel getItem(int position) {
-        return publishModelList.get(position);
+        publishModelList.addAll(modelResults);
+        notifyDataSetChanged();
     }
 }

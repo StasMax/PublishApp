@@ -92,6 +92,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
             }
 
             if (publishModel.getFilePicture() != null) {
+                viewFlipper.removeAllViews();
                 for (String imageUrl : publishModel.getFilePicture()) {
                     setImageInFlipper(imageUrl);
                 }
