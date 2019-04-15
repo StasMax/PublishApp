@@ -1,7 +1,14 @@
 package com.example.android.publishapp.presentation.mvp.presenter;
 
+import android.util.Log;
+
 import com.arellomobile.mvp.MvpView;
+import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.presentation.mvp.view.PublishView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +16,13 @@ import java.util.List;
 
 import lombok.Getter;
 
-public class CommonFieldsPresenter <View extends MvpView> extends BasePresenter<PublishView> {
+import static android.support.constraint.Constraints.TAG;
+import static com.example.android.publishapp.presentation.Constant.FIREBASE_DATABASE_LOCATION_MODEL;
+import static com.example.android.publishapp.presentation.app.App.getDatabaseReference;
+
+public class CommonFieldsPresenter<View extends MvpView> extends BasePresenter<PublishView> {
+
+    private long lastId;
     @Getter
     private List<String> categories = new ArrayList<>();
     @Getter
@@ -49,5 +62,29 @@ public class CommonFieldsPresenter <View extends MvpView> extends BasePresenter<
     public void fieldLinkName(String linkName) {
         String[] linkSplit = linkName.split(", ");
         linksNames = Arrays.asList(linkSplit);
+    }
+
+    long getFieldId() {
+        List<PublishModel> models = new ArrayList<>();
+        Query query = getDatabaseReference()
+                .child(FIREBASE_DATABASE_LOCATION_MODEL)
+                .orderByChild("id")
+                .limitToLast(1);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    models.add(userSnapshot.getValue(PublishModel.class));
+                }
+                lastId = models.get(0).getId();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+        return lastId + 1;
     }
 }

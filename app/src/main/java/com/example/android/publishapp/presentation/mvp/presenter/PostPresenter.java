@@ -28,6 +28,7 @@ public class PostPresenter extends CommonFieldsPresenter<PublishView> {
             getViewState().showMesage(R.string.error_fields);
         } else {
             PublishModel publishModel = PublishModel.builder()
+                    .id(getFieldId())
                     .category(getCategories())
                     .tag(getTags())
                     .header(getHeader())

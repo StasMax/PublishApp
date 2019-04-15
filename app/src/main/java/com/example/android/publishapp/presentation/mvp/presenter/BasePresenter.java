@@ -27,11 +27,11 @@ public class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
     @Getter
     private List<String> fileImage = new ArrayList<>();
 
-    public void disposeBag(Disposable disposable) {
+    void disposeBag(Disposable disposable) {
         compositeDisposable.add(disposable);
     }
 
-    public void unsubscribe() {
+    private void unsubscribe() {
         compositeDisposable.clear();
         compositeDisposable = new CompositeDisposable();
     }
