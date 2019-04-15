@@ -74,7 +74,7 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        if (publishModelList != null) {
+        if (publishModelList != null && publishModelList.size() != 0) {
             if (position == publishModelList.size() - 1 && isLoadingAdded) {
                 return TYPE_LOADING;
             } else {
@@ -89,7 +89,8 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void add(PublishModel r) {
         publishModelList.add(r);
-        notifyItemInserted(publishModelList.size() - 1);
+       // notifyDataSetChanged();
+         notifyItemInserted(publishModelList.size() - 1);
     }
 
     public void addAll(List<PublishModel> moveResults) {
@@ -98,23 +99,8 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public void remove(PublishModel r) {
-        int position = publishModelList.indexOf(r);
-        if (position > -1) {
-            publishModelList.remove(position);
-            notifyItemRemoved(position);
-        }
-    }
-
     public void clear() {
-        isLoadingAdded = false;
-        while (getItemCount() > 0) {
-            remove(getItem(0));
-        }
-    }
-
-    public boolean isEmpty() {
-        return getItemCount() == 0;
+        publishModelList.clear();
     }
 
     public void addLoadingFooter() {
@@ -124,13 +110,13 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void removeLoadingFooter() {
         isLoadingAdded = false;
-
         int position = publishModelList.size() - 1;
-        PublishModel result = getItem(position);
-
-        if (result != null) {
-            publishModelList.remove(position);
-            notifyItemRemoved(position);
+        if (position > -1) {
+            PublishModel result = getItem(position);
+            if (result != null) {
+                publishModelList.remove(position);
+                notifyItemRemoved(position);
+            }
         }
     }
 

@@ -3,15 +3,14 @@ package com.example.android.publishapp.presentation.mvp.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -24,7 +23,6 @@ import com.example.android.publishapp.presentation.app.App;
 import com.example.android.publishapp.presentation.mvp.presenter.MainPresenter;
 import com.example.android.publishapp.presentation.mvp.view.MainView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -45,10 +43,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     ProgressBar progressBar;
     private PublishAdapterRv publishAdapterRv;
     private int currentPage = PAGE_START;
-    private int TOTAL_PAGES = 5;
     private boolean isLoading = false, isLastPage = false;
-    private List<PublishModel> listModels = new ArrayList<>();
-    private List<PublishModel> itemsList = new ArrayList<>();
     @Inject
     @InjectPresenter
     MainPresenter mainPresenter;
@@ -64,24 +59,18 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         publishAdapterRv = new PublishAdapterRv();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(publishAdapterRv);
-
         recyclerView.addOnScrollListener(new PaginationScrollListener(layoutManager) {
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
                 currentPage += 1;
-                new Handler().postDelayed(() -> mainPresenter.initNextPage(publishAdapterRv.getItemCount()), 2000);
-            }
-
-            @Override
-            public int getTotalPageCount() {
-                return TOTAL_PAGES;
+                // Задержка просто для показа загрузки
+                new Handler().postDelayed(() -> mainPresenter.initNextPage(publishAdapterRv.getItemCount()), 1000);
             }
 
             @Override
@@ -94,11 +83,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
                 return isLoading;
             }
         });
-
         mainPresenter.initFirstPage();
     }
 
     public void loadFirstPage(List<PublishModel> publishModels) {
+        publishAdapterRv.clear();
         progressBar.setVisibility(View.GONE);
         publishAdapterRv.addAll(publishModels);
         if (publishAdapterRv.getItemCount() == LOAD_ITEM_SIZE) {
@@ -107,7 +96,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
             isLastPage = true;
         }
     }
-
 
     public void loadNextPage(List<PublishModel> publishModels) {
         publishAdapterRv.removeLoadingFooter();
@@ -120,6 +108,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         }
     }
 
+    @Override
+    public void showMesage(int resource) {
+        Toast.makeText(this, resource, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void setupEmptyList() {
@@ -127,18 +119,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         textEmptyList.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void setupPublishList() {
-        recyclerView.setVisibility(View.VISIBLE);
-        textEmptyList.setVisibility(View.GONE);
-
-        //  publishAdapterRv.addAll(publishList);
-    }
-
     @OnClick(R.id.float_button)
     void onSaveClick() {
         startActivity(new Intent(MainActivity.this, PublishActivity.class));
     }
-
-
 }
