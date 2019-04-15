@@ -16,7 +16,7 @@ import com.example.android.publishapp.presentation.adapter.viewHolders.PostViewH
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.android.publishapp.presentation.Constant.LOADING;
+import static com.example.android.publishapp.presentation.Constant.TYPE_LOADING;
 import static com.example.android.publishapp.presentation.Constant.TYPE_LINK;
 import static com.example.android.publishapp.presentation.Constant.TYPE_EVENT;
 import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
@@ -41,7 +41,7 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
             case TYPE_LINK:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_link, viewGroup, false);
                 return new LinkViewHolder(view);
-            case LOADING:
+            case TYPE_LOADING:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_progress, viewGroup, false);
                 return new LoadingVH(view);
         }
@@ -61,7 +61,7 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
                 case TYPE_LINK:
                     ((LinkViewHolder) viewHolder).bind(publishModelList.get(i));
                     break;
-                case LOADING:
+                case TYPE_LOADING:
                     break;
             }
         }
@@ -76,7 +76,7 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int getItemViewType(int position) {
         if (publishModelList != null) {
             if (position == publishModelList.size() - 1 && isLoadingAdded) {
-                return LOADING;
+                return TYPE_LOADING;
             } else {
                 PublishModel object = publishModelList.get(position);
                 if (object != null) {
@@ -119,7 +119,7 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void addLoadingFooter() {
         isLoadingAdded = true;
-        add(new PublishModel(LOADING));
+        add(new PublishModel(TYPE_LOADING));
     }
 
     public void removeLoadingFooter() {

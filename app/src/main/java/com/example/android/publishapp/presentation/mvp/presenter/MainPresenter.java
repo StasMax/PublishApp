@@ -6,6 +6,11 @@ import com.arellomobile.mvp.InjectViewState;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.domain.iteractor.IPublishIteractor;
 import com.example.android.publishapp.presentation.mvp.view.MainView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,26 +27,19 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.example.android.publishapp.presentation.Constant.FIREBASE_DATABASE_LOCATION_MODEL;
 import static com.example.android.publishapp.presentation.Constant.LOAD_ITEM_SIZE;
 
 @InjectViewState
 public class MainPresenter extends BasePresenter<MainView> {
     private List<PublishModel> modelList = new ArrayList<>();
-    final int batchSize = 10;
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private IPublishIteractor publishIteractor;
 
     @Inject
     public MainPresenter(IPublishIteractor publishIteractor) {
         this.publishIteractor = publishIteractor;
     }
-
-  /*  public void initPublishers() {
-        disposeBag(publishIteractor.getAllPostsFromDb()
-                .doOnSubscribe(disposable -> modelList.clear())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::initPublishersRecycle, Throwable::printStackTrace));
-    }*/
 
     public void initPublishersRecycle(Map<String, PublishModel> publishModels) {
         modelList.clear();
@@ -51,38 +49,55 @@ public class MainPresenter extends BasePresenter<MainView> {
             getViewState().setupEmptyList();
         }
         getViewState().setupPublishList();
-            }
-
-    public void initNextPage(int currentPage) {
-        List<PublishModel> models = new ArrayList<>();
-       publishIteractor.getAllPostsFromDb(currentPage)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Map<String, PublishModel>>() {
-                    @Override
-                    public void onSuccess(Map<String, PublishModel> stringPublishModelMap) {
-                        models.addAll(stringPublishModelMap.values());
-                        getViewState().loadNextPage(models);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-                });
     }
 
-    public void initFirstPage(int currentPage) {
+    public void initNextPage(int idCount) {
         List<PublishModel> models = new ArrayList<>();
-        disposeBag(publishIteractor.getAllPostsFromDb(currentPage)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(publishModels -> {
-                    models.addAll(publishModels.values());
-                    getViewState().loadFirstPage(models);
-                }, Throwable::printStackTrace));
+        database.child(FIREBASE_DATABASE_LOCATION_MODEL)
+                .orderByChild("id")
+                .startAt(idCount)
+                .limitToFirst(LOAD_ITEM_SIZE);
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
 
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    models.add(userSnapshot.getValue(PublishModel.class));
+                }
+                getViewState().loadNextPage(models);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void initFirstPage() {
+        List<PublishModel> models = new ArrayList<>();
+        database.child(FIREBASE_DATABASE_LOCATION_MODEL)
+                .orderByKey()
+                .limitToFirst(LOAD_ITEM_SIZE);
+database.addListenerForSingleValueEvent(new ValueEventListener() {
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+            models.add(userSnapshot.getValue(PublishModel.class));
+        }
+getViewState().loadFirstPage(models);
+
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+
+    }
+});
 
     }
 }

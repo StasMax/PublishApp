@@ -14,12 +14,15 @@ import lombok.Data;
 @Builder
 @Data
 public class PublishModel {
+    @SerializedName("id")
+    @Expose
+    private long id;
     @SerializedName("category")
     @Expose
-    private String [] category;
+    private List<String> category;
     @SerializedName("tag")
     @Expose
-    private String [] tag;
+    private List<String> tag;
     @SerializedName("header")
     @Expose
     private String header;
@@ -46,7 +49,10 @@ public class PublishModel {
         this.type = type;
     }
 
-    public PublishModel(String[] category, String[] tag, String header, String description, List<String> filePicture, List<String> link, List<String> linkName, String date, int type) {
+    public PublishModel() {
+    }
+
+    public PublishModel(long id, List<String> category, List<String> tag, String header, String description, List<String> filePicture, List<String> link, List<String> linkName, String date, int type) {
         this.category = category;
         this.tag = tag;
         this.header = header;
@@ -56,9 +62,10 @@ public class PublishModel {
         this.linkName = linkName;
         this.date = date;
         this.type = type;
+        this.id = id;
     }
 
-    public PublishModel(String[] category, String[] tag, String header, String description, List<String> filePicture, List<String> link, List<String> linkName, int type) {
+    public PublishModel(long id, List<String> category, List<String> tag, String header, String description, List<String> filePicture, List<String> link, List<String> linkName, int type) {
         this.category = category;
         this.tag = tag;
         this.header = header;
@@ -67,30 +74,16 @@ public class PublishModel {
         this.link = link;
         this.linkName = linkName;
         this.type = type;
+        this.id = id;
     }
 
-    public PublishModel(String[] category, String[] tag, List<String> link, List<String> linkName, int type) {
+    public PublishModel(long id, List<String> category, List<String> tag, List<String> link, List<String> linkName, int type) {
         this.category = category;
         this.tag = tag;
         this.link = link;
         this.linkName = linkName;
         this.type = type;
+        this.id = id;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PublishModel that = (PublishModel) o;
-        return Arrays.equals(category, that.category) &&
-                Objects.equals(header, that.header) &&
-                Objects.equals(description, that.description);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(header, description);
-        result = 31 * result + Arrays.hashCode(category);
-        return result;
-    }
 }

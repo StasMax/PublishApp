@@ -74,7 +74,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
             protected void loadMoreItems() {
                 isLoading = true;
                 currentPage += 1;
-                new Handler().postDelayed(() -> mainPresenter.initNextPage(currentPage), 2000);
+                new Handler().postDelayed(() -> mainPresenter.initNextPage(publishAdapterRv.getItemCount()), 2000);
             }
 
             @Override
@@ -93,7 +93,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
             }
         });
 
-        mainPresenter.initFirstPage(currentPage);
+        mainPresenter.initFirstPage();
     }
 
     public void loadFirstPage(List<PublishModel> publishModels) {
