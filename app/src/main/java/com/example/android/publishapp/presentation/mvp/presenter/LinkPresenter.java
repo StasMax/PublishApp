@@ -31,7 +31,7 @@ public class LinkPresenter extends CommonFieldsPresenter<PublishView> {
                     .tag(getTags())
                     .link(getLinks())
                     .linkName(getLinksNames())
-                    .type(TYPE_LINK)
+                    .typeViewHolder(TYPE_LINK)
                     .build();
 
            disposeBag(publishIteractor.insertPostInDb(publishModel)

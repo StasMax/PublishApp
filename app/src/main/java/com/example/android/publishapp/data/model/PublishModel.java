@@ -1,12 +1,8 @@
 package com.example.android.publishapp.data.model;
-
-
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import java.util.Arrays;
+
 import java.util.List;
-import java.util.Objects;
 
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +27,7 @@ public class PublishModel {
     private String description;
     @SerializedName("imageFile")
     @Expose
-    private List<String> filePicture;
+    private List<String> imageFile;
     @SerializedName("link")
     @Expose
     private List<String> link;
@@ -43,46 +39,46 @@ public class PublishModel {
     private String date;
     @SerializedName("typeViewHolder")
     @Expose
-    private int type;
+    private int typeViewHolder;
 
-    public PublishModel(int type) {
-        this.type = type;
+    public PublishModel(int typeViewHolder) {
+        this.typeViewHolder = typeViewHolder;
     }
 
     public PublishModel() {
     }
 
-    public PublishModel(long id, List<String> category, List<String> tag, String header, String description, List<String> filePicture, List<String> link, List<String> linkName, String date, int type) {
+    public PublishModel(long id, List<String> category, List<String> tag, String header, String description, List<String> imageFile, List<String> link, List<String> linkName, String date, int typeViewHolder) {
         this.category = category;
         this.tag = tag;
         this.header = header;
         this.description = description;
-        this.filePicture = filePicture;
+        this.imageFile = imageFile;
         this.link = link;
         this.linkName = linkName;
         this.date = date;
-        this.type = type;
+        this.typeViewHolder = typeViewHolder;
         this.id = id;
     }
 
-    public PublishModel(long id, List<String> category, List<String> tag, String header, String description, List<String> filePicture, List<String> link, List<String> linkName, int type) {
+    public PublishModel(long id, List<String> category, List<String> tag, String header, String description, List<String> imageFile, List<String> link, List<String> linkName, int typeViewHolder) {
         this.category = category;
         this.tag = tag;
         this.header = header;
         this.description = description;
-        this.filePicture = filePicture;
+        this.imageFile = imageFile;
         this.link = link;
         this.linkName = linkName;
-        this.type = type;
+        this.typeViewHolder = typeViewHolder;
         this.id = id;
     }
 
-    public PublishModel(long id, List<String> category, List<String> tag, List<String> link, List<String> linkName, int type) {
+    public PublishModel(long id, List<String> category, List<String> tag, List<String> link, List<String> linkName, int typeViewHolder) {
         this.category = category;
         this.tag = tag;
         this.link = link;
         this.linkName = linkName;
-        this.type = type;
+        this.typeViewHolder = typeViewHolder;
         this.id = id;
     }
 

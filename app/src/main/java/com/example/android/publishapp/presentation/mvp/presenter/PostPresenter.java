@@ -32,10 +32,10 @@ public class PostPresenter extends CommonFieldsPresenter<PublishView> {
                     .tag(getTags())
                     .header(getHeader())
                     .description(getDescription())
-                    .filePicture(getFileImage())
+                    .imageFile(getFileImage())
                     .link(getLinks())
                     .linkName(getLinksNames())
-                    .type(TYPE_POST)
+                    .typeViewHolder(TYPE_POST)
                     .build();
 
             disposeBag(publishIteractor.insertPostInDb(publishModel)

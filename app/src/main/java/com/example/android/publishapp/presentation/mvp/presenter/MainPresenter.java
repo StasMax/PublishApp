@@ -54,15 +54,14 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     public void initNextPage(int idCount) {
         List<PublishModel> models = new ArrayList<>();
-        Query query = getDatabaseReference().child(FIREBASE_DATABASE_LOCATION_MODEL)
+        Query query = getDatabaseReference()
+                .child(FIREBASE_DATABASE_LOCATION_MODEL)
                 .orderByChild("id")
                 .startAt(idCount)
                 .limitToFirst(LOAD_ITEM_SIZE);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     models.add(userSnapshot.getValue(PublishModel.class));
                 }
@@ -79,14 +78,13 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     public void initFirstPage() {
         List<PublishModel> models = new ArrayList<>();
-        Query query = getDatabaseReference().child(FIREBASE_DATABASE_LOCATION_MODEL)
+        Query query = getDatabaseReference()
+                .child(FIREBASE_DATABASE_LOCATION_MODEL)
                 .orderByKey()
                 .limitToFirst(LOAD_ITEM_SIZE);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     models.add(userSnapshot.getValue(PublishModel.class));
                 }

@@ -14,7 +14,6 @@ import java.util.Calendar;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.example.android.publishapp.presentation.Constant.TYPE_EVENT;
@@ -36,11 +35,11 @@ public class EventPresenter extends CommonFieldsPresenter<PublishView> {
                     .tag(getTags())
                     .header(getHeader())
                     .description(getDescription())
-                    .filePicture(getFileImage())
+                    .imageFile(getFileImage())
                     .link(getLinks())
                     .linkName(getLinksNames())
                     .date(initDate())
-                    .type(TYPE_EVENT)
+                    .typeViewHolder(TYPE_EVENT)
                     .build();
 
             disposeBag(publishIteractor.insertPostInDb(publishModel)

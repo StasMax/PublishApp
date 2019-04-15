@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,6 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.example.android.publishapp.presentation.Constant.LOAD_ITEM_SIZE;
 import static com.example.android.publishapp.presentation.Constant.PAGE_START;
 
 public class MainActivity extends MvpAppCompatActivity implements MainView {
@@ -97,21 +99,25 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     }
 
     public void loadFirstPage(List<PublishModel> publishModels) {
-
         progressBar.setVisibility(View.GONE);
         publishAdapterRv.addAll(publishModels);
-        if (currentPage <= TOTAL_PAGES) publishAdapterRv.addLoadingFooter();
-        else isLastPage = true;
+        if (publishAdapterRv.getItemCount() == LOAD_ITEM_SIZE) {
+            publishAdapterRv.addLoadingFooter();
+        } else {
+            isLastPage = true;
+        }
     }
 
 
     public void loadNextPage(List<PublishModel> publishModels) {
         publishAdapterRv.removeLoadingFooter();
         isLoading = false;
-
         publishAdapterRv.addAll(publishModels);
-        if (currentPage != TOTAL_PAGES) publishAdapterRv.addLoadingFooter();
-        else isLastPage = true;
+        if (publishAdapterRv.getItemCount() == LOAD_ITEM_SIZE * currentPage) {
+            publishAdapterRv.addLoadingFooter();
+        } else {
+            isLastPage = true;
+        }
     }
 
 

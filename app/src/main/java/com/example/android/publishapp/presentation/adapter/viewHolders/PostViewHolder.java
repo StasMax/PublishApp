@@ -84,8 +84,8 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                 postDescription.setVisibility(View.GONE);
             }
 
-            if (publishModel.getFilePicture() != null) {
-                Picasso.with(itemView.getContext()).load(publishModel.getFilePicture().get(0)).into(postFilePicture);
+            if (publishModel.getImageFile() != null) {
+                Picasso.with(itemView.getContext()).load(publishModel.getImageFile().get(0)).into(postFilePicture);
             } else {
                 postFilePicture.setVisibility(View.GONE);
             }

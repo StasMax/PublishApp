@@ -51,7 +51,7 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         if (publishModelList.get(i) != null) {
-            switch (publishModelList.get(i).getType()) {
+            switch (publishModelList.get(i).getTypeViewHolder()) {
                 case TYPE_POST:
                     ((PostViewHolder) viewHolder).bind(publishModelList.get(i));
                     break;
@@ -80,7 +80,7 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
             } else {
                 PublishModel object = publishModelList.get(position);
                 if (object != null) {
-                    return object.getType();
+                    return object.getTypeViewHolder();
                 }
             }
         }
