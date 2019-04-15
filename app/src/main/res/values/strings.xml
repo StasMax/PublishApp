@@ -27,4 +27,5 @@
     <string name="success_post">Пост успешно опубликован</string>
     <string name="load_txt">Загрузка</string>
     <string name="error_load">Ошибка загрузки</string>
+    <string name="error_network">Проверьте соединение с интернетом</string>
 </resources>

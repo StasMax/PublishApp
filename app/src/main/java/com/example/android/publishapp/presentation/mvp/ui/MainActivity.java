@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.android.publishapp.R;
@@ -34,7 +33,7 @@ import butterknife.OnClick;
 import static com.example.android.publishapp.presentation.Constant.LOAD_ITEM_SIZE;
 import static com.example.android.publishapp.presentation.Constant.PAGE_START;
 
-public class MainActivity extends MvpAppCompatActivity implements MainView {
+public class MainActivity extends BaseActivity implements MainView {
     @BindView(R.id.recycler_publishes)
     RecyclerView recyclerView;
     @BindView(R.id.txt_empty_list)
@@ -83,7 +82,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
                 return isLoading;
             }
         });
-        mainPresenter.initFirstPage();
+        if (isNetworkConnected()) {
+            mainPresenter.initFirstPage();
+        } else {
+            showMesage(R.string.error_network);
+        }
     }
 
     public void loadFirstPage(List<PublishModel> publishModels) {

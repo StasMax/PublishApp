@@ -89,8 +89,7 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void add(PublishModel r) {
         publishModelList.add(r);
-       // notifyDataSetChanged();
-         notifyItemInserted(publishModelList.size() - 1);
+        notifyItemInserted(publishModelList.size() - 1);
     }
 
     public void addAll(List<PublishModel> moveResults) {
@@ -123,5 +122,4 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
     public PublishModel getItem(int position) {
         return publishModelList.get(position);
     }
-
 }
