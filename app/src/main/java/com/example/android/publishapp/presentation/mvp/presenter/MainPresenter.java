@@ -10,6 +10,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -29,11 +30,11 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.example.android.publishapp.presentation.Constant.FIREBASE_DATABASE_LOCATION_MODEL;
 import static com.example.android.publishapp.presentation.Constant.LOAD_ITEM_SIZE;
+import static com.example.android.publishapp.presentation.app.App.getDatabaseReference;
 
 @InjectViewState
 public class MainPresenter extends BasePresenter<MainView> {
     private List<PublishModel> modelList = new ArrayList<>();
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private IPublishIteractor publishIteractor;
 
     @Inject
@@ -53,11 +54,11 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     public void initNextPage(int idCount) {
         List<PublishModel> models = new ArrayList<>();
-        database.child(FIREBASE_DATABASE_LOCATION_MODEL)
+        Query query = getDatabaseReference().child(FIREBASE_DATABASE_LOCATION_MODEL)
                 .orderByChild("id")
                 .startAt(idCount)
                 .limitToFirst(LOAD_ITEM_SIZE);
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -78,26 +79,26 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     public void initFirstPage() {
         List<PublishModel> models = new ArrayList<>();
-        database.child(FIREBASE_DATABASE_LOCATION_MODEL)
+        Query query = getDatabaseReference().child(FIREBASE_DATABASE_LOCATION_MODEL)
                 .orderByKey()
                 .limitToFirst(LOAD_ITEM_SIZE);
-database.addListenerForSingleValueEvent(new ValueEventListener() {
-    @Override
-    public void onDataChange(DataSnapshot dataSnapshot) {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-            models.add(userSnapshot.getValue(PublishModel.class));
-        }
-getViewState().loadFirstPage(models);
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    models.add(userSnapshot.getValue(PublishModel.class));
+                }
+                getViewState().loadFirstPage(models);
 
-    }
+            }
 
-    @Override
-    public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-    }
-});
+            }
+        });
 
     }
 }

@@ -8,5 +8,5 @@ public class Constant {
     public static final int TYPE_EVENT = 1;
     public static final int TYPE_LINK = 2;
     public static final int TYPE_LOADING = 3;
-    public static final String FIREBASE_DATABASE_LOCATION_MODEL = "post/newPost";
+    public static final String FIREBASE_DATABASE_LOCATION_MODEL = "/post/newPost/";
 }

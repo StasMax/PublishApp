@@ -134,10 +134,5 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         startActivity(new Intent(MainActivity.this, PublishActivity.class));
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
 
 }

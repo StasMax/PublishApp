@@ -7,6 +7,8 @@ import com.example.android.publishapp.di.component.AppComponent;
 import com.example.android.publishapp.di.component.DaggerAppComponent;
 import com.example.android.publishapp.di.module.PublishModule;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
@@ -23,6 +25,7 @@ public class App extends Application {
     private static AppComponent component;
     private static Retrofit retrofit;
     private static StorageReference storageReference;
+    private static DatabaseReference databaseReference;
     private static final String BASE_URL = "https://publishapp-c497e.firebaseio.com/";
 
     @Override
@@ -34,6 +37,7 @@ public class App extends Application {
 
         FirebaseApp.initializeApp(this);
         storageReference = FirebaseStorage.getInstance().getReference("images");
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
@@ -63,5 +67,9 @@ public class App extends Application {
 
     public static StorageReference getStorageReference() {
         return storageReference;
+    }
+
+    public static DatabaseReference getDatabaseReference() {
+        return databaseReference;
     }
 }

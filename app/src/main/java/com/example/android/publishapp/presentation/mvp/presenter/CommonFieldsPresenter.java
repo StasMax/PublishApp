@@ -11,9 +11,9 @@ import lombok.Getter;
 
 public class CommonFieldsPresenter <View extends MvpView> extends BasePresenter<PublishView> {
     @Getter
-    private String[] categories = null;
+    private List<String> categories = new ArrayList<>();
     @Getter
-    private String[] tags = null;
+    private List<String> tags = new ArrayList<>();
     @Getter
     private String header = null;
     @Getter
@@ -24,11 +24,13 @@ public class CommonFieldsPresenter <View extends MvpView> extends BasePresenter<
     private List<String> linksNames = new ArrayList<>();
 
     public void fieldCategory(String category) {
-        categories = category.split(", ");
+        String[] linkSplit = category.split(", ");
+        categories = Arrays.asList(linkSplit);
     }
 
     public void fieldTag(String tag) {
-        tags = tag.split(", ");
+        String[] linkSplit = tag.split(", ");
+        tags = Arrays.asList(linkSplit);
     }
 
     public void fieldHeader(String headerField) {
