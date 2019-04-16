@@ -31,7 +31,7 @@ public class EventPresenter extends CommonFieldsPresenter<PublishView> {
             getViewState().showMesage(R.string.error_fields);
         } else {
            PublishModel publishModel = PublishModel.builder()
-                    .id(getFieldId())
+                    .id(getLastId())
                     .category(getCategories())
                     .tag(getTags())
                     .header(getHeader())

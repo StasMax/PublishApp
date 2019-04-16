@@ -1,5 +1,7 @@
 package com.example.android.publishapp.presentation.mvp.presenter;
 
+import android.util.Log;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
@@ -28,7 +30,7 @@ public class PostPresenter extends CommonFieldsPresenter<PublishView> {
             getViewState().showMesage(R.string.error_fields);
         } else {
             PublishModel publishModel = PublishModel.builder()
-                    .id(getFieldId())
+                    .id(getLastId())
                     .category(getCategories())
                     .tag(getTags())
                     .header(getHeader())

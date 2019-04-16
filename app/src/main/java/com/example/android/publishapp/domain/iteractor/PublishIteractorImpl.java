@@ -3,8 +3,6 @@ package com.example.android.publishapp.domain.iteractor;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.data.repository.IPublishRepository;
 
-import java.util.Map;
-
 import javax.inject.Inject;
 
 import io.reactivex.Single;
@@ -20,10 +18,5 @@ public class PublishIteractorImpl implements IPublishIteractor {
     @Override
     public Single<PublishModel> insertPostInDb(PublishModel publishModel) {
         return publishRepository.insertPublishModel(publishModel);
-    }
-
-    @Override
-    public Single<Map<String, PublishModel>> getAllPostsFromDb(int pageIndex) {
-        return publishRepository.getPublishModelList(pageIndex);
     }
 }

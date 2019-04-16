@@ -15,13 +15,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import static android.support.constraint.Constraints.TAG;
 import static com.example.android.publishapp.presentation.Constant.FIREBASE_DATABASE_LOCATION_MODEL;
 import static com.example.android.publishapp.presentation.app.App.getDatabaseReference;
 
 public class CommonFieldsPresenter<View extends MvpView> extends BasePresenter<PublishView> {
-
+    @Setter
+    @Getter
     private long lastId;
     @Getter
     private List<String> categories = new ArrayList<>();
@@ -35,6 +37,10 @@ public class CommonFieldsPresenter<View extends MvpView> extends BasePresenter<P
     private List<String> links = new ArrayList<>();
     @Getter
     private List<String> linksNames = new ArrayList<>();
+
+    CommonFieldsPresenter() {
+        initFieldId();
+    }
 
     public void fieldCategory(String category) {
         String[] linkSplit = category.split(", ");
@@ -64,8 +70,7 @@ public class CommonFieldsPresenter<View extends MvpView> extends BasePresenter<P
         linksNames = Arrays.asList(linkSplit);
     }
 
-    long getFieldId() {
-        List<PublishModel> models = new ArrayList<>();
+    private void initFieldId() {
         Query query = getDatabaseReference()
                 .child(FIREBASE_DATABASE_LOCATION_MODEL)
                 .orderByChild("id")
@@ -75,9 +80,9 @@ public class CommonFieldsPresenter<View extends MvpView> extends BasePresenter<P
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    models.add(userSnapshot.getValue(PublishModel.class));
+                    long idLast = (userSnapshot.getValue(PublishModel.class)).getId();
+                    setupId(idLast);
                 }
-                lastId = models.get(0).getId();
             }
 
             @Override
@@ -85,6 +90,9 @@ public class CommonFieldsPresenter<View extends MvpView> extends BasePresenter<P
                 Log.w(TAG, "onCancelled", databaseError.toException());
             }
         });
-        return lastId + 1;
+    }
+
+    private void setupId(long idLast) {
+        setLastId(idLast + 1);
     }
 }

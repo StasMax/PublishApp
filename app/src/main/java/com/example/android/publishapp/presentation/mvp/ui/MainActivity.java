@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.presentation.adapter.PaginationScrollListener;
@@ -23,8 +22,6 @@ import com.example.android.publishapp.presentation.mvp.presenter.MainPresenter;
 import com.example.android.publishapp.presentation.mvp.view.MainView;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,14 +40,9 @@ public class MainActivity extends BaseActivity implements MainView {
     private PublishAdapterRv publishAdapterRv;
     private int currentPage = PAGE_START;
     private boolean isLoading = false, isLastPage = false;
-    @Inject
+
     @InjectPresenter
     MainPresenter mainPresenter;
-
-    @ProvidePresenter
-    MainPresenter providePresenter() {
-        return mainPresenter;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +61,7 @@ public class MainActivity extends BaseActivity implements MainView {
                 isLoading = true;
                 currentPage += 1;
                 // Задержка просто для показа загрузки
-                new Handler().postDelayed(() -> mainPresenter.initNextPage(publishAdapterRv.getItemCount()), 1000);
+                new Handler().postDelayed(() -> mainPresenter.initNextPage(publishAdapterRv.getItemCount()), 500);
             }
 
             @Override
