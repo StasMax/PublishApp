@@ -10,7 +10,6 @@ import android.widget.RadioGroup;
 
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.presentation.adapter.FragmentsViewPagerAdapter;
-import com.example.android.publishapp.presentation.app.App;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +28,6 @@ public class PublishActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        App.getComponent().inject(this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish);
         ButterKnife.bind(this);
