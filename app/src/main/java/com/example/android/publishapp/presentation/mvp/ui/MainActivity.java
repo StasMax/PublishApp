@@ -17,7 +17,6 @@ import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.presentation.adapter.PaginationScrollListener;
 import com.example.android.publishapp.presentation.adapter.PublishAdapterRv;
-import com.example.android.publishapp.presentation.app.App;
 import com.example.android.publishapp.presentation.mvp.presenter.MainPresenter;
 import com.example.android.publishapp.presentation.mvp.view.MainView;
 
@@ -40,7 +39,6 @@ public class MainActivity extends BaseActivity implements MainView {
     private PublishAdapterRv publishAdapterRv;
     private int currentPage = PAGE_START;
     private boolean isLoading = false, isLastPage = false;
-    PaginationScrollListener paginationScrollListener;
 
     @InjectPresenter
     MainPresenter mainPresenter;
@@ -55,6 +53,15 @@ public class MainActivity extends BaseActivity implements MainView {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(publishAdapterRv);
+        if (isNetworkConnected()) {
+            listenScrolling(layoutManager);
+            mainPresenter.initFirstPage();
+        } else {
+            showMesage(R.string.error_network);
+        }
+    }
+
+    private void listenScrolling(LinearLayoutManager layoutManager) {
         recyclerView.addOnScrollListener(new PaginationScrollListener(layoutManager) {
             @Override
             protected void loadMoreItems() {
@@ -112,15 +119,5 @@ public class MainActivity extends BaseActivity implements MainView {
     @OnClick(R.id.float_button)
     void onSaveClick() {
         startActivity(new Intent(MainActivity.this, PublishActivity.class));
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (isNetworkConnected()) {
-            mainPresenter.initFirstPage();
-        } else {
-            showMesage(R.string.error_network);
-        }
     }
 }
