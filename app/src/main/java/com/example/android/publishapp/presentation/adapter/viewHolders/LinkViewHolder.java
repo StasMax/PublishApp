@@ -48,7 +48,7 @@ public class LinkViewHolder extends RecyclerView.ViewHolder {
             linkTag.setText(tagBuilder.toString());
             tagBuilder.setLength(0);
 
-            if (publishModel.getLink() != null) {
+            if (publishModel.getLink() != null && publishModel.getLink().size() != 0) {
                 for (int i = 0; i < publishModel.getLink().size(); i++) {
                     linkBuilder.append(" " + "<a href=").append(publishModel.getLink().get(i)).append("><font color=#AAA>").append(publishModel.getLinkName().get(i)).append("</font></a>").append(",");
                 }

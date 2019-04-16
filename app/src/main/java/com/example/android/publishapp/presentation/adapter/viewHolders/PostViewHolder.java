@@ -59,7 +59,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             postTag.setText(tagBuilder.toString());
             tagBuilder.setLength(0);
 
-            if (publishModel.getLink() != null) {
+            if (publishModel.getLink() != null && publishModel.getLink().size() != 0) {
                 for (int i = 0; i < publishModel.getLink().size(); i++) {
                     linkBuilder.append(" " + "<a href=").append(publishModel.getLink().get(i)).append("><font color=#AAA>").append(publishModel.getLinkName().get(i)).append("</font></a>").append(",");
                 }
@@ -84,7 +84,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                 postDescription.setVisibility(View.GONE);
             }
 
-            if (publishModel.getImageFile() != null) {
+            if (publishModel.getImageFile() != null && publishModel.getImageFile().size() != 0) {
                 Picasso.with(itemView.getContext()).load(publishModel.getImageFile().get(0)).into(postFilePicture);
             } else {
                 postFilePicture.setVisibility(View.GONE);

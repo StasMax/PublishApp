@@ -15,8 +15,6 @@ import dagger.Component;
 @Component(dependencies = {}, modules = {PublishModule.class})
 public interface AppComponent {
 
-    void inject(MainActivity mainActivity);
-
     void inject(PublishActivity publishActivity);
 
     void inject(PostFragment postFragment);

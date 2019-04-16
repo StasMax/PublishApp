@@ -100,6 +100,7 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void clear() {
         publishModelList.clear();
+        notifyDataSetChanged();
     }
 
     public void addLoadingFooter() {

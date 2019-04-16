@@ -66,7 +66,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
             eventTag.setText(tagBuilder.toString());
             tagBuilder.setLength(0);
 
-            if (publishModel.getLink() != null || publishModel.getLinkName() != null) {
+            if (publishModel.getLink() != null && publishModel.getLink().size() != 0) {
                 for (int i = 0; i < publishModel.getLink().size(); i++) {
                     linkBuilder.append(" " + "<a href=").append(publishModel.getLink().get(i)).append("><font color=#AAA>").append(publishModel.getLinkName().get(i)).append("</font></a>").append(",");
                 }
@@ -91,7 +91,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
                 eventDescription.setVisibility(GONE);
             }
 
-            if (publishModel.getImageFile() != null) {
+            if (publishModel.getImageFile() != null && publishModel.getImageFile().size() != 0) {
                 viewFlipper.removeAllViews();
                 for (String imageUrl : publishModel.getImageFile()) {
                     setImageInFlipper(imageUrl);

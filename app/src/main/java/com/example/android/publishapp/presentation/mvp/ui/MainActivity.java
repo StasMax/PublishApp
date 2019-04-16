@@ -40,13 +40,13 @@ public class MainActivity extends BaseActivity implements MainView {
     private PublishAdapterRv publishAdapterRv;
     private int currentPage = PAGE_START;
     private boolean isLoading = false, isLastPage = false;
+    PaginationScrollListener paginationScrollListener;
 
     @InjectPresenter
     MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        App.getComponent().inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -74,11 +74,6 @@ public class MainActivity extends BaseActivity implements MainView {
                 return isLoading;
             }
         });
-        if (isNetworkConnected()) {
-            mainPresenter.initFirstPage();
-        } else {
-            showMesage(R.string.error_network);
-        }
     }
 
     public void loadFirstPage(List<PublishModel> publishModels) {
@@ -117,5 +112,15 @@ public class MainActivity extends BaseActivity implements MainView {
     @OnClick(R.id.float_button)
     void onSaveClick() {
         startActivity(new Intent(MainActivity.this, PublishActivity.class));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isNetworkConnected()) {
+            mainPresenter.initFirstPage();
+        } else {
+            showMesage(R.string.error_network);
+        }
     }
 }
