@@ -2,7 +2,6 @@ package com.example.android.publishapp.presentation.app;
 
 import android.app.Application;
 
-
 import com.example.android.publishapp.di.component.AppComponent;
 import com.example.android.publishapp.di.component.DaggerAppComponent;
 import com.example.android.publishapp.di.module.PublishModule;
@@ -20,13 +19,14 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.example.android.publishapp.BuildConfig.BASE_URL;
+
 public class App extends Application {
 
     private static AppComponent component;
     private static Retrofit retrofit;
     private static StorageReference storageReference;
     private static DatabaseReference databaseReference;
-    private static final String BASE_URL = "https://publishapp-c497e.firebaseio.com/";
 
     @Override
     public void onCreate() {
