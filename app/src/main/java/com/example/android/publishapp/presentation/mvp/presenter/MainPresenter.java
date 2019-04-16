@@ -20,51 +20,11 @@ import static com.example.android.publishapp.presentation.app.App.getDatabaseRef
 public class MainPresenter extends BasePresenter<MainView> {
 
     public void initNextPage(int idCount) {
-        List<PublishModel> models = new ArrayList<>();
-        Query query = getDatabaseReference()
-                .child(FIREBASE_DATABASE_LOCATION_MODEL)
-                .orderByChild("id")
-                .startAt(idCount)
-                .limitToFirst(LOAD_ITEM_SIZE);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    models.add(userSnapshot.getValue(PublishModel.class));
-                }
-                getViewState().loadNextPage(models);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                getViewState().showMesage(R.string.error_load);
-            }
-        });
+
     }
 
     public void initFirstPage() {
-        List<PublishModel> models = new ArrayList<>();
-        Query query = getDatabaseReference()
-                .child(FIREBASE_DATABASE_LOCATION_MODEL)
-                .orderByKey()
-                .limitToFirst(LOAD_ITEM_SIZE);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    models.add(userSnapshot.getValue(PublishModel.class));
-                }
-                if (models.size() == 0) {
-                    getViewState().setupEmptyList();
-                } else {
-                    getViewState().loadFirstPage(models);
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                getViewState().showMesage(R.string.error_load);
-            }
-        });
     }
 }
