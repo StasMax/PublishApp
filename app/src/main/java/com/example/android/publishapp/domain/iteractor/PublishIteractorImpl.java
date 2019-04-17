@@ -1,21 +1,23 @@
 package com.example.android.publishapp.domain.iteractor;
 
 import com.example.android.publishapp.data.model.PublishModel;
+import com.example.android.publishapp.data.repository.IDatabaseRepository;
 import com.example.android.publishapp.data.repository.IPublishRepository;
 
-import java.util.Map;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Single;
-import retrofit2.Call;
 
 public class PublishIteractorImpl implements IPublishIteractor {
     private IPublishRepository publishRepository;
+    private IDatabaseRepository databaseRepository;
 
     @Inject
-    public PublishIteractorImpl(IPublishRepository publishRepository) {
+    public PublishIteractorImpl(IPublishRepository publishRepository, IDatabaseRepository databaseRepository) {
         this.publishRepository = publishRepository;
+        this.databaseRepository = databaseRepository;
     }
 
     @Override
@@ -24,7 +26,12 @@ public class PublishIteractorImpl implements IPublishIteractor {
     }
 
     @Override
-    public Call<Map<String, PublishModel>> getAllPostsFromDbCallback(int page, int pageSize) {
-        return publishRepository.getPublishModelListCallback(page, pageSize);
+    public Single<List<PublishModel>> getFirstModels() {
+        return databaseRepository.getFirstPublishModels();
+    }
+
+    @Override
+    public Single<List<PublishModel>> getNextModels(long lastId) {
+        return databaseRepository.getNextPublishModels(lastId);
     }
 }

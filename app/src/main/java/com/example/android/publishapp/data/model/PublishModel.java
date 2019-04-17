@@ -1,22 +1,24 @@
 package com.example.android.publishapp.data.model;
-
-
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import java.util.Arrays;
+
 import java.util.List;
-import java.util.Objects;
+
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 public class PublishModel {
+    @SerializedName("id")
+    @Expose
+    private long id;
     @SerializedName("category")
     @Expose
-    private String [] category;
+    private List<String> category;
     @SerializedName("tag")
     @Expose
-    private String [] tag;
+    private List<String> tag;
     @SerializedName("header")
     @Expose
     private String header;
@@ -25,7 +27,7 @@ public class PublishModel {
     private String description;
     @SerializedName("imageFile")
     @Expose
-    private List<String> filePicture;
+    private List<String> imageFile;
     @SerializedName("link")
     @Expose
     private List<String> link;
@@ -37,53 +39,46 @@ public class PublishModel {
     private String date;
     @SerializedName("typeViewHolder")
     @Expose
-    private int type;
+    private int typeViewHolder;
 
-    public PublishModel(String[] category, String[] tag, String header, String description, List<String> filePicture, List<String> link, List<String> linkName, String date, int type) {
+    public PublishModel(int typeViewHolder) {
+        this.typeViewHolder = typeViewHolder;
+    }
+
+    public PublishModel() {
+    }
+
+    public PublishModel(long id, List<String> category, List<String> tag, String header, String description, List<String> imageFile, List<String> link, List<String> linkName, String date, int typeViewHolder) {
         this.category = category;
         this.tag = tag;
         this.header = header;
         this.description = description;
-        this.filePicture = filePicture;
+        this.imageFile = imageFile;
         this.link = link;
         this.linkName = linkName;
         this.date = date;
-        this.type = type;
+        this.typeViewHolder = typeViewHolder;
+        this.id = id;
     }
 
-    public PublishModel(String[] category, String[] tag, String header, String description, List<String> filePicture, List<String> link, List<String> linkName, int type) {
+    public PublishModel(long id, List<String> category, List<String> tag, String header, String description, List<String> imageFile, List<String> link, List<String> linkName, int typeViewHolder) {
         this.category = category;
         this.tag = tag;
         this.header = header;
         this.description = description;
-        this.filePicture = filePicture;
+        this.imageFile = imageFile;
         this.link = link;
         this.linkName = linkName;
-        this.type = type;
+        this.typeViewHolder = typeViewHolder;
+        this.id = id;
     }
 
-    public PublishModel(String[] category, String[] tag, List<String> link, List<String> linkName, int type) {
+    public PublishModel(long id, List<String> category, List<String> tag, List<String> link, List<String> linkName, int typeViewHolder) {
         this.category = category;
         this.tag = tag;
         this.link = link;
         this.linkName = linkName;
-        this.type = type;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PublishModel that = (PublishModel) o;
-        return Arrays.equals(category, that.category) &&
-                Objects.equals(header, that.header) &&
-                Objects.equals(description, that.description);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(header, description);
-        result = 31 * result + Arrays.hashCode(category);
-        return result;
+        this.typeViewHolder = typeViewHolder;
+        this.id = id;
     }
 }

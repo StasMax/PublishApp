@@ -1,6 +1,5 @@
 package com.example.android.publishapp.presentation.mvp.ui.fragment;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,10 +13,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.presentation.app.App;
 import com.example.android.publishapp.presentation.mvp.presenter.PostPresenter;
-import com.example.android.publishapp.presentation.mvp.view.PostView;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.example.android.publishapp.presentation.mvp.view.PublishView;
 
 import javax.inject.Inject;
 
@@ -27,12 +23,9 @@ import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
 import static com.example.android.publishapp.presentation.Constant.PICK_IMAGE;
-import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
 
-public class PostFragment extends MvpAppCompatFragment implements PostView {
+public class PostFragment extends MvpAppCompatFragment implements PublishView {
 
-    @Inject
-    StorageReference storageReference;
     private Unbinder unbinder;
     @Inject
     @InjectPresenter
@@ -106,7 +99,7 @@ public class PostFragment extends MvpAppCompatFragment implements PostView {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        postPresenter.initUploadImage(requestCode, resultCode, data, storageReference, getContext());
+        postPresenter.initUploadImage(requestCode, resultCode, data, getContext());
     }
 
     @Override

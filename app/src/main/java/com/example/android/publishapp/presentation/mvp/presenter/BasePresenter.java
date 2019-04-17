@@ -11,7 +11,6 @@ import com.arellomobile.mvp.MvpView;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,66 +20,23 @@ import lombok.Getter;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.android.publishapp.presentation.Constant.PICK_IMAGE;
+import static com.example.android.publishapp.presentation.app.App.getStorageReference;
 
 public class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     @Getter
-    private List<String> fileImage;
-    @Getter
-    private String[] categories = null;
-    @Getter
-    private String[] tags = null;
-    @Getter
-    private String header = null;
-    @Getter
-    private String description = null;
-    @Getter
-    private List<String> links;
-    @Getter
-    private List<String> linksNames;
+    private List<String> fileImage = new ArrayList<>();
 
-    public BasePresenter() {
-        fileImage = new ArrayList<>();
-        links = new ArrayList<>();
-        linksNames = new ArrayList<>();
-    }
-
-    public void fieldCategory(String category) {
-        categories = category.split(", ");
-    }
-
-    public void fieldTag(String tag) {
-        tags = tag.split(", ");
-    }
-
-    public void fieldHeader(String headerField) {
-        header = headerField;
-    }
-
-    public void fieldDescription(String descriptionField) {
-        description = descriptionField;
-    }
-
-    public void fieldLink(String link) {
-        String[] linkSplit = link.split(", ");
-        links = Arrays.asList(linkSplit);
-    }
-
-    public void fieldLinkName(String linkName) {
-        String[] linkSplit = linkName.split(", ");
-        linksNames = Arrays.asList(linkSplit);
-    }
-
-    public void disposeBag(Disposable disposable) {
+    void disposeBag(Disposable disposable) {
         compositeDisposable.add(disposable);
     }
 
-    public void unsubscribe() {
+    private void unsubscribe() {
         compositeDisposable.clear();
         compositeDisposable = new CompositeDisposable();
     }
 
-    public void initUploadImage(int requestCode, int resultCode, Intent data, StorageReference storageReference, Context context) {
+    public void initUploadImage(int requestCode, int resultCode, Intent data, Context context) {
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             Uri filePath = data.getData();
@@ -88,7 +44,7 @@ public class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
                 final ProgressDialog progressDialog = new ProgressDialog(context);
                 progressDialog.setTitle("Uploading...");
                 progressDialog.show();
-                StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
+                StorageReference ref = getStorageReference().child("images/" + UUID.randomUUID().toString());
                 ref.putFile(filePath)
                         .addOnSuccessListener(taskSnapshot -> {
                             progressDialog.dismiss();

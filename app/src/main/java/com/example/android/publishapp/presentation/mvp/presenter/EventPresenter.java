@@ -6,7 +6,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.domain.iteractor.IPublishIteractor;
-import com.example.android.publishapp.presentation.mvp.view.EventView;
+import com.example.android.publishapp.presentation.mvp.view.PublishView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.example.android.publishapp.presentation.Constant.TYPE_EVENT;
 @InjectViewState
-public class EventPresenter extends BasePresenter<EventView> {
+public class EventPresenter extends CommonFieldsPresenter<PublishView> {
     private IPublishIteractor publishIteractor;
 
     @Inject
@@ -30,8 +30,21 @@ public class EventPresenter extends BasePresenter<EventView> {
         if (getCategories() == null || getTags() == null || getLinks().size() != getLinksNames().size()) {
             getViewState().showMesage(R.string.error_fields);
         } else {
-            PublishModel publishModel = new PublishModel(getCategories(), getTags(), getHeader(), getDescription(), getFileImage(), getLinks(), getLinksNames(), initDate(), TYPE_EVENT);
+            PublishModel publishModel = PublishModel.builder()
+                    .id(getLastId())
+                    .category(getCategories())
+                    .tag(getTags())
+                    .header(getHeader())
+                    .description(getDescription())
+                    .imageFile(getFileImage())
+                    .link(getLinks())
+                    .linkName(getLinksNames())
+                    .date(initDate())
+                    .typeViewHolder(TYPE_EVENT)
+                    .build();
+
             disposeBag(publishIteractor.insertPostInDb(publishModel)
+                    .doAfterSuccess(publishModel12 -> getFileImage().clear())
                     .doOnSuccess(publishModel1 -> getViewState().showMesage(R.string.success_post))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

@@ -1,24 +1,22 @@
 package com.example.android.publishapp.presentation.mvp.presenter;
 
+import android.util.Log;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.domain.iteractor.IPublishIteractor;
-import com.example.android.publishapp.presentation.mvp.view.PostView;
+import com.example.android.publishapp.presentation.mvp.view.PublishView;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.internal.observers.ConsumerSingleObserver;
-import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.example.android.publishapp.presentation.Constant.TYPE_POST;
 
 @InjectViewState
-public class PostPresenter extends BasePresenter<PostView> {
+public class PostPresenter extends CommonFieldsPresenter<PublishView> {
     private IPublishIteractor publishIteractor;
 
     @Inject
@@ -31,9 +29,20 @@ public class PostPresenter extends BasePresenter<PostView> {
         if (getCategories() == null || getTags() == null || getLinks().size() != getLinksNames().size()) {
             getViewState().showMesage(R.string.error_fields);
         } else {
-            PublishModel publishModel = new PublishModel(getCategories(), getTags(), getHeader(), getDescription(), getFileImage(), getLinks(), getLinksNames(), TYPE_POST);
+            PublishModel publishModel = PublishModel.builder()
+                    .id(getLastId())
+                    .category(getCategories())
+                    .tag(getTags())
+                    .header(getHeader())
+                    .description(getDescription())
+                    .imageFile(getFileImage())
+                    .link(getLinks())
+                    .linkName(getLinksNames())
+                    .typeViewHolder(TYPE_POST)
+                    .build();
 
             disposeBag(publishIteractor.insertPostInDb(publishModel)
+                    .doAfterSuccess(publishModel12 -> getFileImage().clear())
                     .doOnSuccess(publishModel1 -> getViewState().showMesage(R.string.success_post))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

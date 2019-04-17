@@ -1,9 +1,6 @@
 package com.example.android.publishapp.presentation.mvp.ui.fragment;
 
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +12,8 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.presentation.app.App;
 import com.example.android.publishapp.presentation.mvp.presenter.LinkPresenter;
-import com.example.android.publishapp.presentation.mvp.presenter.PostPresenter;
-import com.example.android.publishapp.presentation.mvp.view.LinkView;
+import com.example.android.publishapp.presentation.mvp.view.PublishView;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import javax.inject.Inject;
 
@@ -28,14 +22,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
-import static com.example.android.publishapp.presentation.Constant.PICK_IMAGE;
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class LinkFragment extends MvpAppCompatFragment implements LinkView {
-    FirebaseStorage storage;
-    StorageReference storageReference;
+public class LinkFragment extends MvpAppCompatFragment implements PublishView {
 
     @Inject
     @InjectPresenter
@@ -48,10 +35,7 @@ public class LinkFragment extends MvpAppCompatFragment implements LinkView {
 
     private Unbinder unbinder;
 
-    public LinkFragment() {
-        // Required empty public constructor
-    }
-
+    public LinkFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,9 +44,6 @@ public class LinkFragment extends MvpAppCompatFragment implements LinkView {
         FirebaseApp.initializeApp(getContext());
         View view = inflater.inflate(R.layout.fragment_link, container, false);
         unbinder = ButterKnife.bind(this, view);
-        FirebaseApp app = FirebaseApp.getInstance();
-        storage = FirebaseStorage.getInstance(app);
-        storageReference = storage.getReference("images");
         return view;
     }
     @OnTextChanged(R.id.edit_category_link)

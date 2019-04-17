@@ -9,26 +9,25 @@ import android.widget.TextView;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 
-import java.util.Map;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class LinkViewHolder extends RecyclerView.ViewHolder {
-    private TextView linkCategory;
-    private TextView linkTag;
-    private TextView linkLink;
-    private TextView textLoad;
-    private StringBuilder linkBuilder;
-    private StringBuilder categoryBuilder;
-    private StringBuilder tagBuilder;
+    @BindView(R.id.category_link)
+    TextView linkCategory;
+    @BindView(R.id.tag_link)
+    TextView linkTag;
+    @BindView(R.id.link_link)
+    TextView linkLink;
+    @BindView(R.id.load_txt_link)
+    TextView textLoad;
+    private StringBuilder linkBuilder = new StringBuilder();
+    private StringBuilder categoryBuilder = new StringBuilder();
+    private StringBuilder tagBuilder = new StringBuilder();
 
     public LinkViewHolder(View v) {
         super(v);
-        linkCategory = itemView.findViewById(R.id.category_link);
-        linkTag = itemView.findViewById(R.id.tag_link);
-        linkLink = v.findViewById(R.id.link_link);
-        linkBuilder = new StringBuilder();
-        categoryBuilder = new StringBuilder();
-        tagBuilder = new StringBuilder();
-        textLoad = itemView.findViewById(R.id.load_txt_link);
+        ButterKnife.bind(this, v);
     }
 
     public void bind(PublishModel publishModel) {
@@ -40,20 +39,23 @@ public class LinkViewHolder extends RecyclerView.ViewHolder {
             }
             categoryBuilder.deleteCharAt(categoryBuilder.length() - 1);
             linkCategory.setText(categoryBuilder.toString());
+            categoryBuilder.setLength(0);
 
             for (String tag : publishModel.getTag()) {
                 tagBuilder.append(" ").append(tag).append(",");
             }
             tagBuilder.deleteCharAt(tagBuilder.length() - 1);
             linkTag.setText(tagBuilder.toString());
+            tagBuilder.setLength(0);
 
-            if (publishModel.getLink() != null) {
+            if (publishModel.getLink() != null && publishModel.getLink().size() != 0) {
                 for (int i = 0; i < publishModel.getLink().size(); i++) {
                     linkBuilder.append(" " + "<a href=").append(publishModel.getLink().get(i)).append("><font color=#AAA>").append(publishModel.getLinkName().get(i)).append("</font></a>").append(",");
                 }
                 linkBuilder.deleteCharAt(linkBuilder.length() - 1);
                 linkLink.setText(Html.fromHtml(linkBuilder.toString()));
                 linkLink.setMovementMethod(LinkMovementMethod.getInstance());
+                linkBuilder.setLength(0);
             }
         }
     }
