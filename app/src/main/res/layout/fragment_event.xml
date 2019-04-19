@@ -6,117 +6,165 @@
     android:layout_height="wrap_content"
     tools:context=".presentation.mvp.ui.fragment.EventFragment">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingStart="@dimen/horizontal_default_margin"
-        android:paddingEnd="@dimen/horizontal_default_margin">
+        android:paddingEnd="@dimen/horizontal_default_margin"
+        android:id="@+id/linearLayout2">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/enter_category_txt" />
+            android:text="@string/enter_category_txt"
+            tools:layout_conversion_absoluteHeight="19dp"
+            tools:layout_editor_absoluteY="10dp"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_conversion_absoluteWidth="79dp" />
 
         <EditText
             android:id="@+id/edit_category_event"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_edit_text"
-            android:inputType="text" />
+            android:inputType="text"
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_editor_absoluteY="33dp"
+            tools:layout_editor_absoluteX="14dp"
+            tools:layout_conversion_absoluteWidth="383dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/enter_tag_txt" />
+            android:text="@string/enter_tag_txt"
+            tools:layout_conversion_absoluteHeight="19dp"
+            tools:layout_editor_absoluteY="92dp"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_conversion_absoluteWidth="40dp" />
 
         <EditText
             android:id="@+id/edit_tag_event"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_edit_text"
-            android:inputType="text" />
+            android:inputType="text"
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_editor_absoluteY="115dp"
+            tools:layout_editor_absoluteX="14dp"
+            tools:layout_conversion_absoluteWidth="383dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/enter_header_txt" />
+            android:text="@string/enter_header_txt"
+            tools:layout_conversion_absoluteHeight="19dp"
+            tools:layout_editor_absoluteY="174dp"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_conversion_absoluteWidth="73dp" />
 
         <EditText
             android:id="@+id/edit_header_event"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_edit_text"
-            android:inputType="text" />
+            android:inputType="text"
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_editor_absoluteY="198dp"
+            tools:layout_editor_absoluteX="14dp"
+            tools:layout_conversion_absoluteWidth="383dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/enter_description_txt" />
+            android:text="@string/enter_description_txt"
+            tools:layout_conversion_absoluteHeight="19dp"
+            tools:layout_editor_absoluteY="257dp"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_conversion_absoluteWidth="67dp" />
 
         <EditText
             android:id="@+id/edit_description_event"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_edit_text"
-            android:inputType="text" />
+            android:inputType="text"
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_editor_absoluteY="280dp"
+            tools:layout_editor_absoluteX="14dp"
+            tools:layout_conversion_absoluteWidth="383dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/enter_link_txt" />
+            android:text="@string/enter_link_txt"
+            tools:layout_conversion_absoluteHeight="19dp"
+            tools:layout_editor_absoluteY="339dp"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_conversion_absoluteWidth="96dp" />
 
         <EditText
             android:id="@+id/edit_link_event"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_edit_text"
-            android:inputType="textUri" />
+            android:inputType="textUri"
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_editor_absoluteY="362dp"
+            tools:layout_editor_absoluteX="14dp"
+            tools:layout_conversion_absoluteWidth="383dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/enter_link_txt_name" />
+            android:text="@string/enter_link_txt_name"
+            tools:layout_conversion_absoluteHeight="19dp"
+            tools:layout_editor_absoluteY="411dp"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_conversion_absoluteWidth="120dp" />
 
         <EditText
             android:id="@+id/edit_link_event_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_edit_text"
-            android:inputType="text" />
+            android:inputType="text"
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_editor_absoluteY="435dp"
+            tools:layout_editor_absoluteX="14dp"
+            tools:layout_conversion_absoluteWidth="383dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/star_txt" />
+            android:text="@string/star_txt"
+            tools:layout_conversion_absoluteHeight="19dp"
+            tools:layout_editor_absoluteY="494dp"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_conversion_absoluteWidth="243dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/enter_file_picture_txt" />
+            android:text="@string/enter_file_picture_txt"
+            tools:layout_conversion_absoluteHeight="19dp"
+            tools:layout_editor_absoluteY="523dp"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_conversion_absoluteWidth="155dp" />
 
         <Button
             android:id="@+id/button_image_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_edit_text"
-            android:text="@string/button_load_image_text" />
+            android:text="@string/button_load_image_text"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_editor_absoluteY="546dp"
+            tools:layout_editor_absoluteX="14dp"
+            tools:layout_conversion_absoluteWidth="197dp" />
 
         <Button
             android:id="@+id/button_send_event"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginEnd="@dimen/horizontal_default_margin"
             android:text="@string/button_send_post"
-            android:textSize="20sp" />
-    </LinearLayout>
+            android:textSize="20sp"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_editor_absoluteY="598dp"
+            tools:layout_editor_absoluteX="5dp"
+            tools:layout_conversion_absoluteWidth="382dp" />
+    </android.support.constraint.ConstraintLayout>
 </ScrollView>
