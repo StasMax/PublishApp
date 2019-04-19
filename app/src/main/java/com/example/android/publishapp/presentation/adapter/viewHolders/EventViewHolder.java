@@ -52,19 +52,23 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         if (publishModel == null) {
             textLoad.setText(R.string.load_txt);
         } else {
-            for (String category : publishModel.getCategory()) {
-                categoryBuilder.append(" ").append(category).append(",");
+            if (publishModel.getCategory() != null && publishModel.getCategory().size() != 0) {
+                for (String category : publishModel.getCategory()) {
+                    categoryBuilder.append(" ").append(category).append(",");
+                }
+                categoryBuilder.deleteCharAt(categoryBuilder.length() - 1);
+                eventCategory.setText(categoryBuilder.toString());
+                categoryBuilder.setLength(0);
             }
-            categoryBuilder.deleteCharAt(categoryBuilder.length() - 1);
-            eventCategory.setText(categoryBuilder.toString());
-            categoryBuilder.setLength(0);
 
-            for (String tag : publishModel.getTag()) {
-                tagBuilder.append(" ").append(tag).append(",");
+            if (publishModel.getTag() != null && publishModel.getTag().size() != 0) {
+                for (String tag : publishModel.getTag()) {
+                    tagBuilder.append(" ").append(tag).append(",");
+                }
+                tagBuilder.deleteCharAt(tagBuilder.length() - 1);
+                eventTag.setText(tagBuilder.toString());
+                tagBuilder.setLength(0);
             }
-            tagBuilder.deleteCharAt(tagBuilder.length() - 1);
-            eventTag.setText(tagBuilder.toString());
-            tagBuilder.setLength(0);
 
             if (publishModel.getLink() != null && publishModel.getLink().size() != 0) {
                 for (int i = 0; i < publishModel.getLink().size(); i++) {
@@ -107,7 +111,6 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
                 eventDateWord.setVisibility(GONE);
             }
         }
-
     }
 
     private void setImageInFlipper(String imageUrl) {

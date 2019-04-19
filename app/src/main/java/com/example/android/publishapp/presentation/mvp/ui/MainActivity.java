@@ -1,5 +1,7 @@
 package com.example.android.publishapp.presentation.mvp.ui;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -67,7 +69,7 @@ public class MainActivity extends BaseActivity implements MainView {
             listenScrolling(layoutManager);
             mainPresenter.initFirstPage();
         } else {
-            showMesage(R.string.error_network);
+            showMessage(R.string.error_network);
         }
     }
 
@@ -116,8 +118,15 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     @Override
-    public void showMesage(int resource) {
-        Toast.makeText(this, resource, Toast.LENGTH_SHORT).show();
+    public void showMessage(int resource) {
+        baseShowMessage(resource);
+    }
+
+    @Override
+    public void setupEndList() {
+        publishAdapterRv.removeLoadingFooter();
+        isLoading = true;
+        isLastPage = true;
     }
 
     @Override
@@ -130,4 +139,5 @@ public class MainActivity extends BaseActivity implements MainView {
     void onSaveClick() {
         startActivity(new Intent(MainActivity.this, PublishActivity.class));
     }
+
 }

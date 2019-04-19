@@ -45,7 +45,7 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_progress, viewGroup, false);
                 return new LoadingVH(view);
         }
-        return null;
+        return new LoadingVH(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_progress, viewGroup, false));
     }
 
     @Override
@@ -89,7 +89,8 @@ public class PublishAdapterRv extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void add(PublishModel r) {
         publishModelList.add(r);
-        notifyItemInserted(publishModelList.size() - 1);
+        notifyDataSetChanged();
+     //   notifyItemInserted(publishModelList.size() - 1);
     }
 
     public void addAll(List<PublishModel> moveResults) {

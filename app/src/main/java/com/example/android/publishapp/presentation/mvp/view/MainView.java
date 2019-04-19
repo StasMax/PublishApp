@@ -1,5 +1,8 @@
 package com.example.android.publishapp.presentation.mvp.view;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
@@ -16,5 +19,8 @@ public interface MainView extends MvpView {
 
     void loadNextPage(List<PublishModel> publishModels);
 
-    void showMesage(int resource);
+    void showMessage(int resource);
+
+    void setupEndList();
+
 }

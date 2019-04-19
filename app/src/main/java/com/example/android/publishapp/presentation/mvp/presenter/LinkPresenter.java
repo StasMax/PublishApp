@@ -4,7 +4,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.example.android.publishapp.domain.iteractor.IPublishIteractor;
-import com.example.android.publishapp.presentation.mvp.view.PublishView;
+import com.example.android.publishapp.presentation.mvp.view.LinkView;
 
 import javax.inject.Inject;
 
@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 import static com.example.android.publishapp.presentation.Constant.TYPE_LINK;
 
 @InjectViewState
-public class LinkPresenter extends CommonFieldsPresenter<PublishView> {
+public class LinkPresenter extends CommonFieldsPresenter<LinkView> {
     private IPublishIteractor publishIteractor;
 
     @Inject
@@ -24,7 +24,7 @@ public class LinkPresenter extends CommonFieldsPresenter<PublishView> {
 
     public void initSendLink() {
         if (getCategories() == null || getTags() == null || getLinks().size() != getLinksNames().size()) {
-            getViewState().showMesage(R.string.error_fields);
+            getViewState().showMessage(R.string.error_fields);
         } else {
             PublishModel publishModel = PublishModel.builder()
                     .id(getLastId())
@@ -36,7 +36,7 @@ public class LinkPresenter extends CommonFieldsPresenter<PublishView> {
                     .build();
 
             disposeBag(publishIteractor.insertPostInDb(publishModel)
-                    .doOnSuccess(publishModel1 -> getViewState().showMesage(R.string.success_post))
+                    .doOnSuccess(publishModel1 -> getViewState().showMessage(R.string.success_post))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe());

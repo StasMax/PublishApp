@@ -7,6 +7,10 @@ import com.example.android.publishapp.data.repository.IPublishRepository;
 import com.example.android.publishapp.data.repository.PublishRepositoryImpl;
 import com.example.android.publishapp.domain.iteractor.IPublishIteractor;
 import com.example.android.publishapp.domain.iteractor.PublishIteractorImpl;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import javax.inject.Singleton;
 
@@ -31,7 +35,7 @@ public class PublishModule {
 
     @Provides
     @Singleton
-    IDatabaseRepository databaseRepository() {return new DatabaseRepositoryImpl();
+    IDatabaseRepository databaseRepository(DatabaseReference databaseReference, StorageReference storageReference) {return new DatabaseRepositoryImpl(databaseReference, storageReference);
     }
 
     @Provides
@@ -39,4 +43,12 @@ public class PublishModule {
     Api getApi() {
         return getRetrofit().create(Api.class);
     }
+
+    @Provides
+    @Singleton
+    StorageReference storageReference(){return FirebaseStorage.getInstance().getReference("images");}
+
+    @Provides
+    @Singleton
+    DatabaseReference databaseReference(){return FirebaseDatabase.getInstance().getReference();}
 }

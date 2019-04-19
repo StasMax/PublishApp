@@ -28,4 +28,6 @@
     <string name="load_txt">Загрузка</string>
     <string name="error_load">Ошибка загрузки</string>
     <string name="error_network">Проверьте соединение с интернетом</string>
+    <string name="uploaded">Изображение загружено</string>
+    <string name="error_uploading">Ошибка загрузки изображения</string>
 </resources>

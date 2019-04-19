@@ -4,9 +4,9 @@ import android.util.Log;
 
 import com.arellomobile.mvp.MvpView;
 import com.example.android.publishapp.data.model.PublishModel;
-import com.example.android.publishapp.presentation.mvp.view.PublishView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
@@ -14,14 +14,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import lombok.Getter;
 import lombok.Setter;
 
 import static android.support.constraint.Constraints.TAG;
 import static com.example.android.publishapp.presentation.Constant.FIREBASE_DATABASE_LOCATION_MODEL;
-import static com.example.android.publishapp.presentation.app.App.getDatabaseReference;
 
-public class CommonFieldsPresenter<View extends MvpView> extends BasePresenter<PublishView> {
+public class CommonFieldsPresenter<View extends MvpView> extends BasePresenter<View> {
     @Setter
     @Getter
     private long lastId;
@@ -38,8 +39,15 @@ public class CommonFieldsPresenter<View extends MvpView> extends BasePresenter<P
     @Getter
     private List<String> linksNames = new ArrayList<>();
 
-    CommonFieldsPresenter() {
+    private DatabaseReference databaseReference;
+
+    @Inject
+    public CommonFieldsPresenter(DatabaseReference databaseReference) {
+        this.databaseReference = databaseReference;
         initFieldId();
+    }
+
+    public CommonFieldsPresenter() {
     }
 
     public void fieldCategory(String category) {
@@ -71,7 +79,7 @@ public class CommonFieldsPresenter<View extends MvpView> extends BasePresenter<P
     }
 
     private void initFieldId() {
-        Query query = getDatabaseReference()
+        Query query = databaseReference
                 .child(FIREBASE_DATABASE_LOCATION_MODEL)
                 .orderByChild("id")
                 .limitToLast(1);

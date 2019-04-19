@@ -12,6 +12,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.presentation.app.App;
 import com.example.android.publishapp.presentation.mvp.presenter.LinkPresenter;
+import com.example.android.publishapp.presentation.mvp.view.LinkView;
 import com.example.android.publishapp.presentation.mvp.view.PublishView;
 import com.google.firebase.FirebaseApp;
 
@@ -22,7 +23,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
-public class LinkFragment extends MvpAppCompatFragment implements PublishView {
+public class LinkFragment extends BaseFragmentActivity implements LinkView {
 
     @Inject
     @InjectPresenter
@@ -67,8 +68,8 @@ public class LinkFragment extends MvpAppCompatFragment implements PublishView {
     }
 
     @Override
-    public void showMesage(int resource) {
-        Toast.makeText(getContext(), resource, Toast.LENGTH_SHORT).show();
+    public void showMessage(int resource) {
+        baseShowMessage(resource);
     }
 
     @OnClick(R.id.button_send_link)

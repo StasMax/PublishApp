@@ -1,5 +1,6 @@
 package com.example.android.publishapp.presentation.mvp.ui.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,8 +25,8 @@ import butterknife.Unbinder;
 
 import static com.example.android.publishapp.presentation.Constant.PICK_IMAGE;
 
-public class PostFragment extends MvpAppCompatFragment implements PublishView {
-
+public class PostFragment extends BaseFragmentActivity implements PublishView {
+    private ProgressDialog progressDialog;
     private Unbinder unbinder;
     @Inject
     @InjectPresenter
@@ -79,8 +80,25 @@ public class PostFragment extends MvpAppCompatFragment implements PublishView {
     }
 
     @Override
-    public void showMesage(int resource) {
-        Toast.makeText(getContext(), resource, Toast.LENGTH_SHORT).show();
+    public void showMessage(int resource) {
+        baseShowMessage(resource);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("Загрузка...");
+        progressDialog.show();
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void setProgressDialog(String text) {
+        progressDialog.setMessage(text);
     }
 
     @OnClick(R.id.button_send_post)
@@ -99,7 +117,7 @@ public class PostFragment extends MvpAppCompatFragment implements PublishView {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        postPresenter.initUploadImage(requestCode, resultCode, data, getContext());
+        postPresenter.initUploadImage(requestCode, resultCode, data);
     }
 
     @Override
