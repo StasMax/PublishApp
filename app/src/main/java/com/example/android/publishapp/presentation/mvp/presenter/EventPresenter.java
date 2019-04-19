@@ -35,18 +35,18 @@ public class EventPresenter extends CommonFieldsPresenter<PublishView> {
     }
 
     public void initSendEvent() {
-        if (getCategories() == null || getTags() == null || getLinks().size() != getLinksNames().size()) {
+        if (categories == null || tags == null || links.size() != linksNames.size()) {
             getViewState().showMessage(R.string.error_fields);
         } else {
             PublishModel publishModel = PublishModel.builder()
-                    .id(getLastId())
-                    .category(getCategories())
-                    .tag(getTags())
-                    .header(getHeader())
-                    .description(getDescription())
+                    .id(lastId)
+                    .category(categories)
+                    .tag(tags)
+                    .header(header)
+                    .description(description)
                     .imageFile(fileImage)
-                    .link(getLinks())
-                    .linkName(getLinksNames())
+                    .link(links)
+                    .linkName(linksNames)
                     .date(initDate())
                     .typeViewHolder(TYPE_EVENT)
                     .build();

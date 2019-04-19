@@ -23,15 +23,15 @@ public class LinkPresenter extends CommonFieldsPresenter<LinkView> {
     }
 
     public void initSendLink() {
-        if (getCategories() == null || getTags() == null || getLinks().size() != getLinksNames().size()) {
+        if (categories == null || tags == null || links.size() != linksNames.size()) {
             getViewState().showMessage(R.string.error_fields);
         } else {
             PublishModel publishModel = PublishModel.builder()
-                    .id(getLastId())
-                    .category(getCategories())
-                    .tag(getTags())
-                    .link(getLinks())
-                    .linkName(getLinksNames())
+                    .id(lastId)
+                    .category(categories)
+                    .tag(tags)
+                    .link(links)
+                    .linkName(linksNames)
                     .typeViewHolder(TYPE_LINK)
                     .build();
 

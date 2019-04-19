@@ -1,7 +1,6 @@
 package com.example.android.publishapp.presentation.mvp.presenter;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.arellomobile.mvp.MvpView;
 import com.example.android.publishapp.data.model.PublishModel;
@@ -17,30 +16,20 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import lombok.Getter;
 import lombok.Setter;
 
-import static android.support.constraint.Constraints.TAG;
 import static com.example.android.publishapp.presentation.Constant.FIREBASE_DATABASE_LOCATION_MODEL;
 import static com.example.android.publishapp.presentation.Logger.logErrorDatabase;
 
 public class CommonFieldsPresenter<View extends MvpView> extends BasePresenter<View> {
     @Setter
-    @Getter
-    private long lastId;
-    @Getter
-    private List<String> categories = new ArrayList<>();
-    @Getter
-    private List<String> tags = new ArrayList<>();
-    @Getter
-    private String header = null;
-    @Getter
-    private String description = null;
-    @Getter
-    private List<String> links = new ArrayList<>();
-    @Getter
-    private List<String> linksNames = new ArrayList<>();
-
+    long lastId;
+    List<String> categories = new ArrayList<>();
+    List<String> tags = new ArrayList<>();
+    String header = null;
+    String description = null;
+    List<String> links = new ArrayList<>();
+    List<String> linksNames = new ArrayList<>();
     private DatabaseReference databaseReference;
 
     @Inject

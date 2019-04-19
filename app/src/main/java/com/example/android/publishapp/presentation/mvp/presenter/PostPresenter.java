@@ -34,18 +34,18 @@ public class PostPresenter extends CommonFieldsPresenter<PublishView> {
 
     public void initSendPost() {
 
-        if (getCategories().size() == 0 || getTags().size() == 0 || getLinks().size() != getLinksNames().size()) {
+        if (categories == null || tags == null || links.size() != linksNames.size()) {
             getViewState().showMessage(R.string.error_fields);
         } else {
             PublishModel publishModel = PublishModel.builder()
-                    .id(getLastId())
-                    .category(getCategories())
-                    .tag(getTags())
-                    .header(getHeader())
-                    .description(getDescription())
+                    .id(lastId)
+                    .category(categories)
+                    .tag(tags)
+                    .header(header)
+                    .description(description)
                     .imageFile(fileImage)
-                    .link(getLinks())
-                    .linkName(getLinksNames())
+                    .link(links)
+                    .linkName(linksNames)
                     .typeViewHolder(TYPE_POST)
                     .build();
 
