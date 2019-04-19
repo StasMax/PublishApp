@@ -1,9 +1,6 @@
 package com.example.android.publishapp.presentation.mvp.ui.fragment;
 
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +12,9 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.presentation.app.App;
 import com.example.android.publishapp.presentation.mvp.presenter.LinkPresenter;
-import com.example.android.publishapp.presentation.mvp.presenter.PostPresenter;
 import com.example.android.publishapp.presentation.mvp.view.LinkView;
+import com.example.android.publishapp.presentation.mvp.view.PublishView;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import javax.inject.Inject;
 
@@ -28,14 +23,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
-import static com.example.android.publishapp.presentation.Constant.PICK_IMAGE;
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class LinkFragment extends MvpAppCompatFragment implements LinkView {
-    FirebaseStorage storage;
-    StorageReference storageReference;
+public class LinkFragment extends BaseFragmentActivity implements LinkView {
 
     @Inject
     @InjectPresenter
@@ -48,46 +36,44 @@ public class LinkFragment extends MvpAppCompatFragment implements LinkView {
 
     private Unbinder unbinder;
 
-    public LinkFragment() {
-        // Required empty public constructor
-    }
-
+    public LinkFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         App.getComponent().inject(this);
-        FirebaseApp.initializeApp(getContext());
         View view = inflater.inflate(R.layout.fragment_link, container, false);
         unbinder = ButterKnife.bind(this, view);
-        FirebaseApp app = FirebaseApp.getInstance();
-        storage = FirebaseStorage.getInstance(app);
-        storageReference = storage.getReference("images");
         return view;
     }
-    @OnTextChanged(R.id.edit_category_link)
-    public void onCategoryTextChanged(CharSequence s, int start, int before, int count) {
-        linkPresenter.fieldCategory(s.toString());
-    }
 
-    @OnTextChanged(R.id.edit_tag_link)
-    public void onTagTextChanged(CharSequence s, int start, int before, int count) {
-        linkPresenter.fieldTag(s.toString());
-    }
+    @OnTextChanged({R.id.edit_category_link, R.id.edit_tag_link,
+             R.id.edit_link_link, R.id.edit_link_link_name})
+    public void onFieldsTextChanged(CharSequence s, int start, int before, int count) {
+        if (getActivity() == null || getActivity().getCurrentFocus() == null) {
+            return;
+        }
 
-    @OnTextChanged(R.id.edit_link_link)
-    public void onLinkTextChanged(CharSequence s, int start, int before, int count) {
-        linkPresenter.fieldLink(s.toString());
-    }
-
-    @OnTextChanged(R.id.edit_link_link_name)
-    public void onLinkNameTextChanged(CharSequence s, int start, int before, int count) {
-        linkPresenter.fieldLinkName(s.toString());
+        String text = s.toString();
+        switch (getActivity().getCurrentFocus().getId()) {
+            case R.id.edit_category_link:
+                linkPresenter.fieldCategory(text);
+                break;
+            case R.id.edit_tag_post:
+                linkPresenter.fieldTag(text);
+                break;
+            case R.id.edit_link_link:
+                linkPresenter.fieldLink(text);
+                break;
+            case R.id.edit_link_link_name:
+                linkPresenter.fieldLinkName(text);
+                break;
+        }
     }
 
     @Override
-    public void showMesage(int resource) {
-        Toast.makeText(getContext(), resource, Toast.LENGTH_SHORT).show();
+    public void showMessage(int resource) {
+        baseShowMessage(resource);
     }
 
     @OnClick(R.id.button_send_link)

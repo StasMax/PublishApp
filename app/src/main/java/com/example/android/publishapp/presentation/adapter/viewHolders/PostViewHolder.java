@@ -11,59 +11,66 @@ import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
 import com.squareup.picasso.Picasso;
 
-import java.util.Map;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class PostViewHolder extends RecyclerView.ViewHolder {
-    private TextView postCategory;
-    private TextView postTag;
-    private TextView postHeader;
-    private TextView postDescription;
-    private ImageView postFilePicture;
-    private TextView postLink;
-    private TextView postLinkWord;
-    private StringBuilder categoryBuilder;
-    private StringBuilder tagBuilder;
-    private StringBuilder linkBuilder;
-    private TextView textLoad;
+    @BindView(R.id.category_post)
+    TextView postCategory;
+    @BindView(R.id.tag_post)
+    TextView postTag;
+    @BindView(R.id.header_post)
+    TextView postHeader;
+    @BindView(R.id.description_post)
+    TextView postDescription;
+    @BindView(R.id.file_picture_post)
+    ImageView postFilePicture;
+    @BindView(R.id.link_post)
+    TextView postLink;
+    @BindView(R.id.link_post_word)
+    TextView postLinkWord;
+    @BindView(R.id.load_txt_post)
+    TextView textLoad;
+    private StringBuilder categoryBuilder = new StringBuilder();
+    private StringBuilder tagBuilder = new StringBuilder();
+    private StringBuilder linkBuilder = new StringBuilder();
 
-    public PostViewHolder(View itemView) {
-        super(itemView);
-        postCategory = itemView.findViewById(R.id.category_post);
-        postTag = itemView.findViewById(R.id.tag_post);
-        postHeader = itemView.findViewById(R.id.header_post);
-        postDescription = itemView.findViewById(R.id.description_post);
-        postFilePicture = itemView.findViewById(R.id.file_picture_post);
-        postLink = itemView.findViewById(R.id.link_post);
-        postLinkWord = itemView.findViewById(R.id.link_post_word);
-        categoryBuilder = new StringBuilder();
-        tagBuilder = new StringBuilder();
-        linkBuilder = new StringBuilder();
-        textLoad = itemView.findViewById(R.id.load_txt_post);
+
+    public PostViewHolder(View v) {
+        super(v);
+        ButterKnife.bind(this, v);
     }
 
     public void bind(PublishModel publishModel) {
         if (publishModel == null) {
             textLoad.setText(R.string.load_txt);
         } else {
-            for (String category : publishModel.getCategory()) {
-                categoryBuilder.append(" ").append(category).append(",");
+            if (publishModel.getCategory() != null && publishModel.getCategory().size() != 0) {
+                for (String category : publishModel.getCategory()) {
+                    categoryBuilder.append(" ").append(category).append(",");
+                }
+                categoryBuilder.deleteCharAt(categoryBuilder.length() - 1);
+                postCategory.setText(categoryBuilder.toString());
+                categoryBuilder.setLength(0);
             }
-            categoryBuilder.deleteCharAt(categoryBuilder.length() - 1);
-            postCategory.setText(categoryBuilder.toString());
 
-            for (String tag : publishModel.getTag()) {
-                tagBuilder.append(" ").append(tag).append(",");
+            if (publishModel.getTag() != null && publishModel.getTag().size() != 0) {
+                for (String tag : publishModel.getTag()) {
+                    tagBuilder.append(" ").append(tag).append(",");
+                }
+                tagBuilder.deleteCharAt(tagBuilder.length() - 1);
+                postTag.setText(tagBuilder.toString());
+                tagBuilder.setLength(0);
             }
-            tagBuilder.deleteCharAt(tagBuilder.length() - 1);
-            postTag.setText(tagBuilder.toString());
 
-            if (publishModel.getLink() != null) {
+            if (publishModel.getLink() != null && publishModel.getLink().size() != 0) {
                 for (int i = 0; i < publishModel.getLink().size(); i++) {
                     linkBuilder.append(" " + "<a href=").append(publishModel.getLink().get(i)).append("><font color=#AAA>").append(publishModel.getLinkName().get(i)).append("</font></a>").append(",");
                 }
                 linkBuilder.deleteCharAt(linkBuilder.length() - 1);
                 postLink.setText(Html.fromHtml(linkBuilder.toString()));
                 postLink.setMovementMethod(LinkMovementMethod.getInstance());
+                linkBuilder.setLength(0);
             } else {
                 postLink.setVisibility(View.GONE);
                 postLinkWord.setVisibility(View.GONE);
@@ -81,8 +88,8 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                 postDescription.setVisibility(View.GONE);
             }
 
-            if (publishModel.getFilePicture() != null) {
-                Picasso.with(itemView.getContext()).load(publishModel.getFilePicture().get(0)).into(postFilePicture);
+            if (publishModel.getImageFile() != null && publishModel.getImageFile().size() != 0) {
+                Picasso.with(itemView.getContext()).load(publishModel.getImageFile().get(0)).into(postFilePicture);
             } else {
                 postFilePicture.setVisibility(View.GONE);
             }
