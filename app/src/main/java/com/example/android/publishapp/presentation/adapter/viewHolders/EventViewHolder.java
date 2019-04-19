@@ -5,13 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.example.android.publishapp.R;
 import com.example.android.publishapp.data.model.PublishModel;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +40,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
     private StringBuilder categoryBuilder = new StringBuilder();
     private StringBuilder tagBuilder = new StringBuilder();
     private StringBuilder linkBuilder = new StringBuilder();
+    private ImageHelper imageHelper = new ImageHelper();
 
     public EventViewHolder(@NonNull View v) {
         super(v);
@@ -98,7 +97,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
             if (publishModel.getImageFile() != null && publishModel.getImageFile().size() != 0) {
                 viewFlipper.removeAllViews();
                 for (String imageUrl : publishModel.getImageFile()) {
-                    setImageInFlipper(imageUrl);
+                    viewFlipper.addView(imageHelper.setImageInFlipper(itemView, imageUrl));
                 }
             } else {
                 viewFlipper.setVisibility(GONE);
@@ -113,9 +112,5 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    private void setImageInFlipper(String imageUrl) {
-        ImageView image = new ImageView(itemView.getContext());
-        Picasso.with(itemView.getContext()).load(imageUrl).into(image);
-        viewFlipper.addView(image);
-    }
+
 }
