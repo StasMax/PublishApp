@@ -1,6 +1,6 @@
 package com.example.android.publishapp.data.repository;
 
-import android.util.Log;
+import android.support.annotation.NonNull;
 
 import com.example.android.publishapp.data.model.PublishModel;
 import com.google.firebase.database.DataSnapshot;
@@ -18,9 +18,9 @@ import javax.inject.Inject;
 
 import io.reactivex.Single;
 
-import static com.example.android.publishapp.presentation.Constant.DATABASE;
 import static com.example.android.publishapp.presentation.Constant.FIREBASE_DATABASE_LOCATION_MODEL;
 import static com.example.android.publishapp.presentation.Constant.LOAD_ITEM_SIZE;
+import static com.example.android.publishapp.presentation.Logger.logErrorDatabase;
 
 public class DatabaseRepositoryImpl implements IDatabaseRepository {
 
@@ -42,7 +42,7 @@ public class DatabaseRepositoryImpl implements IDatabaseRepository {
                 .limitToFirst(LOAD_ITEM_SIZE);
         return Single.create(subscriber -> query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     models.add(userSnapshot.getValue(PublishModel.class));
                 }
@@ -50,8 +50,8 @@ public class DatabaseRepositoryImpl implements IDatabaseRepository {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(DATABASE, databaseError.getMessage());
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                logErrorDatabase(databaseError.getMessage());
             }
         }));
     }
@@ -66,7 +66,7 @@ public class DatabaseRepositoryImpl implements IDatabaseRepository {
                 .limitToFirst(LOAD_ITEM_SIZE);
         return Single.create(subscriber -> query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     models.add(userSnapshot.getValue(PublishModel.class));
                 }
@@ -74,8 +74,8 @@ public class DatabaseRepositoryImpl implements IDatabaseRepository {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(DATABASE, databaseError.getMessage());
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                logErrorDatabase(databaseError.getMessage());
             }
         }));
     }

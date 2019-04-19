@@ -49,34 +49,34 @@ public class EventFragment extends BaseFragmentActivity implements PublishView {
         return view;
     }
 
-    @OnTextChanged(R.id.edit_category_event)
-    public void onCategoryTextChanged(CharSequence s, int start, int before, int count) {
-        eventPresenter.fieldCategory(s.toString());
-    }
+    @OnTextChanged({R.id.edit_category_event, R.id.edit_header_event, R.id.edit_tag_event,
+            R.id.edit_description_event, R.id.edit_link_event, R.id.edit_link_event_name})
+    public void onFieldsTextChanged(CharSequence s, int start, int before, int count) {
+        if (getActivity() == null || getActivity().getCurrentFocus() == null) {
+            return;
+        }
 
-    @OnTextChanged(R.id.edit_tag_event)
-    public void onTagTextChanged(CharSequence s, int start, int before, int count) {
-        eventPresenter.fieldTag(s.toString());
-    }
-
-    @OnTextChanged(R.id.edit_header_event)
-    public void onHeaderTextChanged(CharSequence s, int start, int before, int count) {
-        eventPresenter.fieldHeader(s.toString());
-    }
-
-    @OnTextChanged(R.id.edit_description_event)
-    public void onDescriptionTextChanged(CharSequence s, int start, int before, int count) {
-        eventPresenter.fieldDescription(s.toString());
-    }
-
-    @OnTextChanged(R.id.edit_link_event)
-    public void onLinkTextChanged(CharSequence s, int start, int before, int count) {
-        eventPresenter.fieldLink(s.toString());
-    }
-
-    @OnTextChanged(R.id.edit_link_event_name)
-    public void onLinkNameTextChanged(CharSequence s, int start, int before, int count) {
-        eventPresenter.fieldLinkName(s.toString());
+        String text = s.toString();
+        switch (getActivity().getCurrentFocus().getId()) {
+            case R.id.edit_category_event:
+                eventPresenter.fieldCategory(text);
+                break;
+            case R.id.edit_tag_event:
+                eventPresenter.fieldTag(text);
+                break;
+            case R.id.edit_header_event:
+                eventPresenter.fieldHeader(text);
+                break;
+            case R.id.edit_description_event:
+                eventPresenter.fieldDescription(text);
+                break;
+            case R.id.edit_link_event:
+                eventPresenter.fieldLink(text);
+                break;
+            case R.id.edit_link_event_name:
+                eventPresenter.fieldLinkName(text);
+                break;
+        }
     }
 
     @Override
@@ -111,7 +111,7 @@ public class EventFragment extends BaseFragmentActivity implements PublishView {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+        startActivityForResult(Intent.createChooser(intent, "Выбирите изображение"), PICK_IMAGE);
     }
 
     @Override

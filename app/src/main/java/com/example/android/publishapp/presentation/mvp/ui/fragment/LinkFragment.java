@@ -42,29 +42,33 @@ public class LinkFragment extends BaseFragmentActivity implements LinkView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         App.getComponent().inject(this);
-        FirebaseApp.initializeApp(getContext());
         View view = inflater.inflate(R.layout.fragment_link, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
-    @OnTextChanged(R.id.edit_category_link)
-    public void onCategoryTextChanged(CharSequence s, int start, int before, int count) {
-        linkPresenter.fieldCategory(s.toString());
-    }
 
-    @OnTextChanged(R.id.edit_tag_link)
-    public void onTagTextChanged(CharSequence s, int start, int before, int count) {
-        linkPresenter.fieldTag(s.toString());
-    }
+    @OnTextChanged({R.id.edit_category_link, R.id.edit_tag_link,
+             R.id.edit_link_link, R.id.edit_link_link_name})
+    public void onFieldsTextChanged(CharSequence s, int start, int before, int count) {
+        if (getActivity() == null || getActivity().getCurrentFocus() == null) {
+            return;
+        }
 
-    @OnTextChanged(R.id.edit_link_link)
-    public void onLinkTextChanged(CharSequence s, int start, int before, int count) {
-        linkPresenter.fieldLink(s.toString());
-    }
-
-    @OnTextChanged(R.id.edit_link_link_name)
-    public void onLinkNameTextChanged(CharSequence s, int start, int before, int count) {
-        linkPresenter.fieldLinkName(s.toString());
+        String text = s.toString();
+        switch (getActivity().getCurrentFocus().getId()) {
+            case R.id.edit_category_link:
+                linkPresenter.fieldCategory(text);
+                break;
+            case R.id.edit_tag_post:
+                linkPresenter.fieldTag(text);
+                break;
+            case R.id.edit_link_link:
+                linkPresenter.fieldLink(text);
+                break;
+            case R.id.edit_link_link_name:
+                linkPresenter.fieldLinkName(text);
+                break;
+        }
     }
 
     @Override

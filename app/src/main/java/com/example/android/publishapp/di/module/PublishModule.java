@@ -7,6 +7,7 @@ import com.example.android.publishapp.data.repository.IPublishRepository;
 import com.example.android.publishapp.data.repository.PublishRepositoryImpl;
 import com.example.android.publishapp.domain.iteractor.IPublishIteractor;
 import com.example.android.publishapp.domain.iteractor.PublishIteractorImpl;
+import com.example.android.publishapp.presentation.RetrofitInit;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -16,8 +17,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-
-import static com.example.android.publishapp.presentation.app.App.getRetrofit;
 
 @Module
 public class PublishModule {
@@ -35,20 +34,25 @@ public class PublishModule {
 
     @Provides
     @Singleton
-    IDatabaseRepository databaseRepository(DatabaseReference databaseReference, StorageReference storageReference) {return new DatabaseRepositoryImpl(databaseReference, storageReference);
+    IDatabaseRepository databaseRepository(DatabaseReference databaseReference, StorageReference storageReference) {
+        return new DatabaseRepositoryImpl(databaseReference, storageReference);
     }
 
     @Provides
     @Singleton
     Api getApi() {
-        return getRetrofit().create(Api.class);
+        return new RetrofitInit().getRetrofit().create(Api.class);
     }
 
     @Provides
     @Singleton
-    StorageReference storageReference(){return FirebaseStorage.getInstance().getReference("images");}
+    StorageReference storageReference() {
+        return FirebaseStorage.getInstance().getReference("images");
+    }
 
     @Provides
     @Singleton
-    DatabaseReference databaseReference(){return FirebaseDatabase.getInstance().getReference();}
+    DatabaseReference databaseReference() {
+        return FirebaseDatabase.getInstance().getReference();
+    }
 }

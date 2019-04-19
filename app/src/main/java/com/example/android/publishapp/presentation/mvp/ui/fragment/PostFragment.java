@@ -49,34 +49,34 @@ public class PostFragment extends BaseFragmentActivity implements PublishView {
         return view;
     }
 
-    @OnTextChanged(R.id.edit_category_post)
-    public void onCategoryTextChanged(CharSequence s, int start, int before, int count) {
-        postPresenter.fieldCategory(s.toString());
-    }
+    @OnTextChanged({R.id.edit_category_post, R.id.edit_header_post, R.id.edit_tag_post,
+            R.id.edit_description_post, R.id.edit_link_post, R.id.edit_link_post_name})
+    public void onFieldsTextChanged(CharSequence s, int start, int before, int count) {
+        if (getActivity() == null || getActivity().getCurrentFocus() == null) {
+            return;
+        }
 
-    @OnTextChanged(R.id.edit_tag_post)
-    public void onTagTextChanged(CharSequence s, int start, int before, int count) {
-        postPresenter.fieldTag(s.toString());
-    }
-
-    @OnTextChanged(R.id.edit_header_post)
-    public void onHeaderTextChanged(CharSequence s, int start, int before, int count) {
-        postPresenter.fieldHeader(s.toString());
-    }
-
-    @OnTextChanged(R.id.edit_description_post)
-    public void onDescriptionTextChanged(CharSequence s, int start, int before, int count) {
-        postPresenter.fieldDescription(s.toString());
-    }
-
-    @OnTextChanged(R.id.edit_link_post)
-    public void onLinkTextChanged(CharSequence s, int start, int before, int count) {
-        postPresenter.fieldLink(s.toString());
-    }
-
-    @OnTextChanged(R.id.edit_link_post_name)
-    public void onLinkNameTextChanged(CharSequence s, int start, int before, int count) {
-        postPresenter.fieldLinkName(s.toString());
+        String text = s.toString();
+        switch (getActivity().getCurrentFocus().getId()) {
+            case R.id.edit_category_post:
+                postPresenter.fieldCategory(text);
+                break;
+            case R.id.edit_tag_post:
+                postPresenter.fieldTag(text);
+                break;
+            case R.id.edit_header_post:
+                postPresenter.fieldHeader(text);
+                break;
+            case R.id.edit_description_post:
+                postPresenter.fieldDescription(text);
+                break;
+            case R.id.edit_link_post:
+                postPresenter.fieldLink(text);
+                break;
+            case R.id.edit_link_post_name:
+                postPresenter.fieldLinkName(text);
+                break;
+        }
     }
 
     @Override

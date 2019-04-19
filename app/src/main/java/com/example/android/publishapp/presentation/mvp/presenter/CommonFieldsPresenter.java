@@ -1,5 +1,6 @@
 package com.example.android.publishapp.presentation.mvp.presenter;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.arellomobile.mvp.MvpView;
@@ -21,6 +22,7 @@ import lombok.Setter;
 
 import static android.support.constraint.Constraints.TAG;
 import static com.example.android.publishapp.presentation.Constant.FIREBASE_DATABASE_LOCATION_MODEL;
+import static com.example.android.publishapp.presentation.Logger.logErrorDatabase;
 
 public class CommonFieldsPresenter<View extends MvpView> extends BasePresenter<View> {
     @Setter
@@ -86,7 +88,7 @@ public class CommonFieldsPresenter<View extends MvpView> extends BasePresenter<V
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     long idLast = (userSnapshot.getValue(PublishModel.class)).getId();
                     setupId(idLast);
@@ -94,13 +96,13 @@ public class CommonFieldsPresenter<View extends MvpView> extends BasePresenter<V
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "onCancelled", databaseError.toException());
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                logErrorDatabase(databaseError.getMessage());
             }
         });
     }
 
     private void setupId(long idLast) {
-        setLastId(idLast + 1);
+        setLastId(++idLast);
     }
 }
