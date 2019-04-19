@@ -24,6 +24,7 @@ import io.reactivex.schedulers.Schedulers;
 import static android.app.Activity.RESULT_OK;
 import static com.example.android.publishapp.presentation.Constant.PICK_IMAGE;
 import static com.example.android.publishapp.presentation.Constant.TYPE_EVENT;
+
 @InjectViewState
 public class EventPresenter extends CommonFieldsPresenter<PublishView> {
     private List<String> fileImage = new ArrayList<>();

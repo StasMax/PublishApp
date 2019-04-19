@@ -6,6 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 @StateStrategyType(value = OneExecutionStateStrategy.class)
 public interface PublishView extends MvpView {
+
     void showMessage(int resource);
 
     void showProgressDialog();
